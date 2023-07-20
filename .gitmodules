@@ -10,3 +10,6 @@
 [submodule "jyy-os-2023/lab/os-workbench"]
 	path = jyy-os-2023/lab/os-workbench
 	url = https://git.nju.edu.cn/jyy/os-workbench.git
+[submodule "learn-assembly-on-Apple-Silicon-Mac"]
+	path = learn-assembly-on-Apple-Silicon-Mac
+	url = git@github.com:zhubeilife/learn-assembly-on-Apple-Silicon-Mac.git
