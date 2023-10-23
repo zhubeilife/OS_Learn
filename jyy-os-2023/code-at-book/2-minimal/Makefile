@@ -3,7 +3,7 @@ a.out: minimal.S
 	ld minimal.o
 
 detail.out:
-	gcc -E	minimal.S > minimal.s
+	gcc -E minimal.S -o minimal.s
 	as minimal.s -o minimal.o
 	ld minimal.o
 
@@ -13,5 +13,4 @@ step:
 	ld hello.o -e main
 
 clean:
-	rm minimal.o
-	rm a.out
+	rm -f minimal.o a.out
