@@ -1,6 +1,5 @@
 a.out: minimal.S
-	gcc -S minimal.S > minimal.s
-	as minimal.s -o minimal.o
+	gcc -c minimal.S
 	ld minimal.o
 
 step:
