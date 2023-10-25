@@ -1,6 +1,6 @@
 a.out: minimal.S
-	gcc -S minimal.S > minimal.s
-	as minimal.s -o minimal.o
+	gcc -S minimal.S > minimal_S.s
+	as minimal_S.s -o minimal.o
 	ld minimal.o
 
 gcc-demo:
