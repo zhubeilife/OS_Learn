@@ -13,4 +13,4 @@ step:
 	ld hello.o -e main
 
 clean:
-	rm -f minimal.o a.out
+	rm -f minimal.o a.out hello.o
