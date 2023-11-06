@@ -7,7 +7,7 @@ run: mbr.img
 	qemu-system-x86_64 $<
 
 debug: mbr.img
-	qemu-system-x86_64 -s -S $< &  # Run QEMU in background
+	qemu-system-x86_64 -s -S $< &  # Run QEMU in background, -S not start code, -s start gdb server
 	x86_64-elf-gdb -x init.gdb  # RTFM: gdb (1)
 
 clean:
