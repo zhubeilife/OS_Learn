@@ -1,7 +1,12 @@
-mbr.img: mbr.S
+mbr_mac.img: mbr.S
 	x86_64-elf-gcc -ggdb -c $<
 	x86_64-elf-ld mbr.o -Ttext 0x7c00
 	x86_64-elf-objcopy -S -O binary -j .text a.out $@
+
+mbr.img: mbr.S
+	gcc -ggdb -c $<
+	ld mbr.o -Ttext 0x7c00
+	objcopy -S -O binary -j .text a.out $@
 
 run: mbr.img
 	qemu-system-x86_64 $<
