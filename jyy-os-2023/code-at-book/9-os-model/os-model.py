@@ -53,5 +53,6 @@ if __name__ == '__main__':
     for syscall in OperatingSystem.SYSCALLS:
         src = src.replace(f'sys_{syscall}',        # sys_write(...)
                           f'yield "{syscall}", ')  #  -> yield 'write', (...)
+    Path(f'{sys.argv[1]}_replace.py').write_text(src)
 
     OperatingSystem(src).run()
