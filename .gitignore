@@ -130,3 +130,8 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 build/
+
+# exercise code
+
+pstree-32
+pstree-64

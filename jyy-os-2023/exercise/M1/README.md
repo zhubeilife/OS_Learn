@@ -28,7 +28,7 @@ OS2023-M1 提交结果
 
 一个可行的想法是操作系统可以提供类似迭代器的 API，可以在某个时刻对进程列表进行 “快照”，然后程序可以通过 API 迭代快照里的进程。
 
-```
+```c++
 Snapshot*CreateProcessSnapshot();// 迭代开始
 Process*FirstProcess(Snapshot*snapshot);// 取得第一个进程
 Process*NextProcess(Process*process);// 获得下一个进程
@@ -37,7 +37,7 @@ intReleaseProcessSnapshot(Snapshot*snapshot);// 迭代结束
 
 高级语言可以进一步封装，例如借助 WMI (Windows Management Instrumentation) 库：
 
-```
+```python
 import wmi
 for proc in wmi.WMI().Win32_Process():
     ...
@@ -45,18 +45,18 @@ for proc in wmi.WMI().Win32_Process():
 
 UNIX 操作系统的设计者用另一种方法使应用程序能访问进程列表：操作系统会不断更新一个对象 (文本文件) 的内容，这样应用程序就能用文件 API (open, read, close) 来获取进程列表，例如大家可以用熟悉的 C 语言 `FILE *` 访问。例如，今天我们可以考虑一个名为 `/system/processes.json` 的文本，每当进程创建或退出，这个文件的内容就会更新：
 
-```
+```json
 [
-{
-"pid":1,
-"parent":-1,
-"command":"/bin/init"
-},
-{
-"pid":2,
-"parent":1,
-"command":"/bin/bash"
-}
+  {
+    "pid": 1,
+    "parent": -1,
+    "command": "/bin/init"
+  },
+  {
+    "pid": 2,
+    "parent": 1,
+    "command": "/bin/bash"
+  }
 ]
 ```
 
@@ -80,7 +80,7 @@ UNIX 采用了 Everything is a File 的设计。换句话说，我们可以 **�
 
 Linux 系统自带了 `pstree` 命令，进程树会以非常漂亮的格式排版 (每个进程的第一个孩子都与它处在同一行，之后的孩子保持相同的缩进)：
 
-```
+```bash
 systemd─┬─accounts-daemon─┬─{gdbus}
         │                 └─{gmain}
         ├─acpid
@@ -105,7 +105,11 @@ Linux 的 psmisc 中 `pstree` 的实现大约有 1,300 行，支持多种命令�
 
 ### 2.1 总览
 
-pstree [OPTION]…### 2.2 描述
+```bash
+pstree [OPTION]…
+```
+
+### 2.2 描述
 
 把系统中的进程按照父亲-孩子的树状结构打印到终端。
 
@@ -123,7 +127,7 @@ pstree [OPTION]…### 2.2 描述
 2. 同一个选项可以有不同的名字。在 `pstree` 中，`-p` 和 `--show-pids` 的含义是一样的。
 3. 若不另行说明，整数范围在 32 位有符号整数范围内；但如果数值和文件大小有关，则其合法的范围是是 0 到系统最大支持的文件大小。
 
-此外，`main` 函数的返回值代表了命令执行的状态，其中 `EXIT_SUCCESS` 表示命令执行成功，`EXIT_FAILURE` 表示执行失败。对于 POSIX 来说，0 代表成功，非 0 代表失败：例如 `diff` 返回 1 表示比较的文件不同，返回 2 表示读取文件失败 (`cmp` 的行为也类似)。UNIX Shell 对返回值有[额外的处理](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap12.html)。这解释了为什么一些 OJ 会明确要求 main 函数返回值为 0，当返回非 0 时将被认为是 Runtime Error。
+此外，`main` 函数的返回值代表了命令执行的状态，其中 `EXIT_SUCCESS` 表示命令执行成功，`EXIT_FAILURE` 表示执行失败。对于 POSIX 来说，0 代表成功，非 0 代表失败：例如 `diff` 返回 1 表示比较的文件不同，返回 2 表示读取文件失败 (`cmp` 的行为也类似)。UNIX Shell 对返回值有额外的处理。这解释了为什么一些 OJ 会明确要求 main 函数返回值为 0，当返回非 0 时将被认为是 Runtime Error。
 
 > #### Specification
 >
@@ -141,7 +145,7 @@ pstree [OPTION]…### 2.2 描述
 
 你可以任意选择树的形态，以下输出都是合法的：
 
-```
+```bash
 $ ./pstree-64
 systemd─┬─accounts-daemon─┬─
         │
@@ -193,17 +197,17 @@ systemd
 
 我们的框架中已经包含了以下代码，功能是输出为 main 函数传递的参数——把进程看作状态机，main 函数的参数是进程 “初始状态” 的一部分，它是由进程的创建者决定的，也就是你在终端中执行类似 “`./a.out hello world`” 时指定的。
 
-```
-#include<stdio.h>
-#include<assert.h>
+```c++
+#include <stdio.h>
+#include <assert.h>
 
-intmain(intargc,char*argv[]){
-for(inti=0;i<argc;i++){
-assert(argv[i]);// C 标准保证
-printf("argv[%d] = %s\n",i,argv[i]);
-}
-assert(!argv[argc]);// C 标准保证
-return0;
+int main(int argc, char *argv[]) {
+  for (int i = 0; i < argc; i++) {
+    assert(argv[i]);
+    printf("argv[%d] = %s\n", i, argv[i]);
+  }
+  assert(!argv[argc]);
+  return 0;
 }
 ```
 
@@ -241,19 +245,19 @@ return0;
 
 了解了 procfs 之后，我们的问题就变得简单一些了：只要能得到 `/proc` 目录下的所有以数字为开头的目录，我们就遍历了系统中的进程。因此你会去互联网上搜索如何用 C 语言遍历目录。之后，你可以用你熟悉的方式打开 procfs 里的文件：
 
-```
+```c++
 FILE*fp=fopen(filename,"r");
 if(fp){
-// 用fscanf, fgets等函数读取
-fclose(fp);
+    // 用fscanf, fgets等函数读取
+    fclose(fp);
 }else{
-// 错误处理
+    // 错误处理
 }
 ```
 
 procfs 里的信息足够让你写一个非常不错的任务管理器。那么，“真正” 的任务管理器，例如 ps 命令，是否也是基于 procfs 实现的呢？这就是一个典型的 “好问题”：他帮助你建立你的实验作业和真实系统之间的联系。操作系统课程也给了大家足够的工具，使得同学们可以把任务管理器打开，查看它调用的操作系统 API。我们在课堂上已经演示过 gcc 和 xedit 的例子，就用 strace 工具就能查看进程运行时的系统调用序列：
 
-```
+```bash
 $ strace ps
 ...
 openat(AT_FDCWD, "/proc/1/stat", O_RDONLY)           = 6
@@ -264,13 +268,13 @@ close(6)                                             = 0
 
 ### 4.4. 建树和打印
 
-这是算法/数据结构课程的内容，也是经典的编程面试题之一——互联网公司很可能会用类似的题目来考察面试者的基本能力。如果你没有头绪，试着定义一个递归函数 �(�)=[�1,�2,…,��]**f**(**T**)**=**[**s**1****,**s**2****,**…**,**s**n****] 把 �**T** 打印成多行文本 (第 �**i** 行是字符串 ��**s**i****)。
+这是算法/数据结构课程的内容，也是经典的编程面试题之一——互联网公司很可能会用类似的题目来考察面试者的基本能力。如果你没有头绪，试着定义一个递归函数 f(T)=[s1, s2, ... sn] 把 **T** 打印成多行文本 (第 **i** 行是字符串 **si**)。
 
 1. 对于叶子节点，直接输出一个格式化字符串 (例如使用 `asprintf`)；
-2. 如果不是叶子节点，对它所有子树 �1,�2,…��**T**1,**T**2,**…**T**k** 分别求 ��(��)**f**i(**T**i)，得到 �**k** 个多行的文本；
+2. 如果不是叶子节点，对它所有子树 **T1**,**T2**,**…** **Tk** 分别求 fi(Ti)，得到 **k** 个多行的文本；
 3. 把这些字符串拼到适当的位置，加上一些连接线：
 
-```
+```bash
 (root)─+─T1(line 1)
        | T1(line 2)
        | T1(line 3)
