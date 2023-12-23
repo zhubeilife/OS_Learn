@@ -6,3 +6,6 @@ include ../Makefile
 
 pstree-opt: getopt.c
 	gcc $(CFLAGS) getopt.c -o $@ $(LDFLAGS)
+
+run: all
+	./$(NAME)-64

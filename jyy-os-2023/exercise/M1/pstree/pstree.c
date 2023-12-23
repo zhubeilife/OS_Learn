@@ -1,11 +1,59 @@
 #include <stdio.h>
 #include <assert.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <regex.h>
 #include <unistd.h>
 #include <getopt.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
 char* PSTREE_VERSION = "0.0.1";
+
+bool CheckNameAllNumber(char* name)
+{
+    // Variable to store initial regex()
+    regex_t reegex;
+    // Creation of regEx
+    if (0 != regcomp(&reegex, "^[0-9]+$", REG_EXTENDED))
+    {
+       fprintf(stderr, "RegEX compilation error.");
+        return false;
+    }
+
+    // string in reg
+    int exec_status = regexec( &reegex, name, 0, NULL, 0);
+    // clean up regex memory
+    regfree(&reegex);
+    return (exec_status == 0) ? true : false;
+}
+
+void ListAll()
+{
+    struct dirent* de; // Pointer for directory entry
+    struct stat filestat;
+    // opendir() returns a pointer of DIR type.
+    DIR* dr = opendir("/proc");
+
+    if (dr == NULL) // opendir returns NULL if couldn't open directory
+    {
+        fprintf(stderr, "Could not open current directory");
+        return;
+    }
+
+    // Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html
+    // for readdir()
+    while ((de = readdir(dr)) != NULL)
+    {
+        stat(de->d_name, &filestat);
+        if (S_ISDIR(filestat.st_mode) && CheckNameAllNumber(de->d_name))
+        {
+            printf("%s\n", de->d_name);
+        }
+    }
+
+    closedir(dr);
+}
 
 int main(int argc, char* argv[])
 {
@@ -46,6 +94,8 @@ int main(int argc, char* argv[])
     }
     // show debug info
     printf("debug: show-pids:%d numeric-sort:%d\n", show_pids, numeric_sort);
+
+    ListAll();
 
     exit(EXIT_SUCCESS);
 }
