@@ -7,6 +7,7 @@
 #include <getopt.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 char* PSTREE_VERSION = "0.0.1";
 
@@ -17,12 +18,12 @@ bool CheckNameAllNumber(char* name)
     // Creation of regEx
     if (0 != regcomp(&reegex, "^[0-9]+$", REG_EXTENDED))
     {
-       fprintf(stderr, "RegEX compilation error.");
+        fprintf(stderr, "RegEX compilation error.");
         return false;
     }
 
     // string in reg
-    int exec_status = regexec( &reegex, name, 0, NULL, 0);
+    int exec_status = regexec(&reegex, name, 0, NULL, 0);
     // clean up regex memory
     regfree(&reegex);
     return (exec_status == 0) ? true : false;
@@ -46,9 +47,26 @@ void ListAll()
     while ((de = readdir(dr)) != NULL)
     {
         stat(de->d_name, &filestat);
+        printf("\n%s ", de->d_name);
         if (S_ISDIR(filestat.st_mode) && CheckNameAllNumber(de->d_name))
         {
-            printf("%s\n", de->d_name);
+            printf("\n%s ", de->d_name);
+
+            char fullpath[PATH_MAX] = "/proc/";
+            strcat(fullpath, de->d_name);
+            strcat(fullpath, "/stat");
+
+            FILE* fp = fopen(fullpath, "r");
+            if (fp)
+            {
+                int ppid = 0;
+                fscanf(fp, "%*d %*s %*c %d", &ppid);
+                printf("ppid %d\n", ppid);
+            }
+            else
+            {
+                fprintf(stderr, "Could not open stat %s", fullpath);
+            }
         }
     }
 
