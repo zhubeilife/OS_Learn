@@ -15,6 +15,9 @@ CFLAGS += -O1 -std=gnu11 -ggdb -Wall -Werror -Wno-unused-result -Wno-unused-valu
 .DEFAULT_GOAL := commit-and-make
 commit-and-make: git all
 
+$(NAME)-arm: $(DEPS) # 64bit binary
+	gcc $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
+
 $(NAME)-64: $(DEPS) # 64bit binary
 	gcc -m64 $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
 

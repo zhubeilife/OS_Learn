@@ -9,3 +9,6 @@ pstree-opt: getopt.c
 
 run: all
 	./$(NAME)-64
+
+run-arm: $(NAME)-arm
+	./$(NAME)-arm

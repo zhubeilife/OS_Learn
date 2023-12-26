@@ -47,11 +47,8 @@ void ListAll()
     while ((de = readdir(dr)) != NULL)
     {
         stat(de->d_name, &filestat);
-        printf("\n%s ", de->d_name);
         if (S_ISDIR(filestat.st_mode) && CheckNameAllNumber(de->d_name))
         {
-            printf("\n%s ", de->d_name);
-
             char fullpath[PATH_MAX] = "/proc/";
             strcat(fullpath, de->d_name);
             strcat(fullpath, "/stat");
@@ -61,7 +58,7 @@ void ListAll()
             {
                 int ppid = 0;
                 fscanf(fp, "%*d %*s %*c %d", &ppid);
-                printf("ppid %d\n", ppid);
+                printf("pid: %s ppid: %d\n", de->d_name ,ppid);
             }
             else
             {
