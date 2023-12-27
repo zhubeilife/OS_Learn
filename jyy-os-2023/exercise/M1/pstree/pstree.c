@@ -21,6 +21,7 @@ char* PSTREE_VERSION = "0.0.2";
 typedef struct proc
 {
     pid_t pid;
+    char name[128];
     pid_t ppid;
     struct proc* child;
     struct proc* next_bro;
@@ -49,7 +50,7 @@ void PrintTree(proc_t pid_list[], proc_t* node, int depth)
 {
     // print current node info
     printf("%*s", depth * 4, "|-");
-    printf("%d\n", node->pid);
+    printf("%s[%d]\n", node->name, node->pid);
 
     if (node->child != NULL)
     {
@@ -94,10 +95,11 @@ void ListAll()
             FILE* fp = fopen(fullpath, "r");
             if (fp)
             {
-                int ppid = 0;
-                fscanf(fp, "%*d %*s %*c %d", &ppid);
                 int pid = atoi(de->d_name);
-                printf("pid: %d ppid: %d\n", pid, ppid);
+                int ppid = 0;
+                fscanf(fp, "%*d %s %*c %d", pid_list[pid - 1].name, &ppid);
+
+                //printf("pid: %d ppid: %d\n", pid, ppid);
 
                 // add info to pidlist
                 pid_list[pid - 1].pid = pid;
@@ -126,6 +128,7 @@ void ListAll()
     }
 
     // print the result
+#if 0
     printf("===show the result===\n");
     for (int i = 0; i < MAX_PID_NUM; i++)
     {
@@ -134,8 +137,9 @@ void ListAll()
             printf("%d %d\n", pid_list[i].pid, pid_list[i].ppid);
         }
     }
+#endif
 
-    printf("===show the tree===\n");
+    printf("\n===show the tree===\n\n");
     proc_t head_proc = pid_list[0];
     int depth = 0;
     PrintTree(pid_list, &head_proc, depth);
