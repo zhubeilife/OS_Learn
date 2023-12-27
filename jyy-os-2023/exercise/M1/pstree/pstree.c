@@ -9,7 +9,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-char* PSTREE_VERSION = "0.0.1";
+#define MAX_PID_NUM 10000
+char* PSTREE_VERSION = "0.0.2";
 
 // STEP-3 建树和打印
 /*
@@ -21,7 +22,10 @@ typedef struct proc
 {
     pid_t pid;
     pid_t ppid;
-} proc;
+    struct proc* child;
+    struct proc* next_bro;
+} proc_t;
+
 
 bool CheckNameAllNumber(char* name)
 {
@@ -41,6 +45,22 @@ bool CheckNameAllNumber(char* name)
     return (exec_status == 0) ? true : false;
 }
 
+void PrintTree(proc_t pid_list[], proc_t* node, int depth)
+{
+    // print current node info
+    printf("%*s", depth * 4, "|-");
+    printf("%d\n", node->pid);
+
+    if (node->child != NULL)
+    {
+        PrintTree(pid_list, node->child, depth + 1);
+    }
+    if (node->next_bro != NULL)
+    {
+        PrintTree(pid_list, node->next_bro, depth);
+    }
+}
+
 void ListAll()
 {
     struct dirent* de; // Pointer for directory entry
@@ -53,6 +73,12 @@ void ListAll()
         fprintf(stderr, "Could not open current directory");
         return;
     }
+
+    // Reminder me: 这里需要显示的给初值 "= {}"
+    // proc_t pid_list[MAX_PID_NUM]; 如果光这样写的话，数组中变量就是不确定的
+    proc_t pid_list[MAX_PID_NUM] = {};
+    proc_t init_pid = {.pid = 1, .ppid = 0, .child = NULL, .next_bro = NULL};
+    pid_list[0] = init_pid;
 
     // Refer http://pubs.opengroup.org/onlinepubs/7990989775/xsh/readdir.html
     // for readdir()
@@ -70,7 +96,27 @@ void ListAll()
             {
                 int ppid = 0;
                 fscanf(fp, "%*d %*s %*c %d", &ppid);
-                printf("pid: %s ppid: %d\n", de->d_name ,ppid);
+                int pid = atoi(de->d_name);
+                printf("pid: %d ppid: %d\n", pid, ppid);
+
+                // add info to pidlist
+                pid_list[pid - 1].pid = pid;
+                pid_list[pid - 1].ppid = ppid;
+
+                // find ppid and get info
+                if (pid_list[ppid - 1].child == NULL)
+                {
+                    pid_list[ppid - 1].child = &(pid_list[pid - 1]);
+                }
+                else
+                {
+                    proc_t* next_bro = pid_list[ppid - 1].child;
+                    while (next_bro->next_bro != NULL)
+                    {
+                        next_bro = next_bro->next_bro;
+                    }
+                    next_bro->next_bro = &(pid_list[pid - 1]);
+                }
             }
             else
             {
@@ -78,6 +124,21 @@ void ListAll()
             }
         }
     }
+
+    // print the result
+    printf("===show the result===\n");
+    for (int i = 0; i < MAX_PID_NUM; i++)
+    {
+        if (pid_list[i].pid != 0)
+        {
+            printf("%d %d\n", pid_list[i].pid, pid_list[i].ppid);
+        }
+    }
+
+    printf("===show the tree===\n");
+    proc_t head_proc = pid_list[0];
+    int depth = 0;
+    PrintTree(pid_list, &head_proc, depth);
 
     closedir(dr);
 }
