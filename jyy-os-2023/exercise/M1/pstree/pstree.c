@@ -11,6 +11,18 @@
 
 char* PSTREE_VERSION = "0.0.1";
 
+// STEP-3 建树和打印
+/*
+ * 1）自己的第一直觉也是通过树的结构，将所有的proc都用树的结构来表示，然后就是打印整个树的结构
+ * 2）首先遇到的问题是，怎们建立一个树的结构，或者怎们定义这个数据结构，是在父节点中添加子节点信息，还是在子节点中添加父节点的信息。
+ */
+
+typedef struct proc
+{
+    pid_t pid;
+    pid_t ppid;
+} proc;
+
 bool CheckNameAllNumber(char* name)
 {
     // Variable to store initial regex()
