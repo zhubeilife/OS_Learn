@@ -32,5 +32,3 @@ $(NAME)-32.so: $(DEPS) # 32bit shared library
 
 clean:
 	rm -f $(NAME) $(NAME)-64 $(NAME)-32 $(NAME)-64.so $(NAME)-32.so
-
-#include ../Makefile.lab
