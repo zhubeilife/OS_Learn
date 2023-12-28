@@ -6,7 +6,16 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots>
       <file path="$PROJECT_DIR$/jyy-os-2023/abstract-machine" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/L0/kernel" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/L1/kernel" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/L2/kernel" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M1-pstree/pstree" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M1-pstree/pstree-others" />
       <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M1/pstree" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M2/plcs" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M3/sperf" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M4/crepl" />
+      <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M5/frecov" />
     </sourceRoots>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
