@@ -95,8 +95,13 @@ ASFLAGS  += -MMD $(INCFLAGS)
 
 ### Fall back to native gcc/binutils if there is no cross compiler
 ifeq ($(wildcard $(shell which $(CC))),)
-  $(info #  $(CC) not found; fall back to default gcc and binutils)
-  CROSS_COMPILE :=
+  ifneq ($(wildcard $(shell which x86_64-elf-gcc)),)
+  	  $(info #  $(CC) not found; fall back to use x86_64-elf-gcc on mac )
+ 	  CROSS_COMPILE := x86_64-elf-
+  else
+  	  $(info #  $(CC) not found; fall back to default gcc and binutils)
+	  CROSS_COMPILE :=
+  endif
 endif
 
 ## 5. Compilation Rules

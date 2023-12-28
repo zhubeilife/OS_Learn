@@ -131,6 +131,11 @@ fabric.properties
 
 build/
 
+# mac os General
+.DS_Store
+.AppleDouble
+.LSOverride
+
 # exercise code
 
 pstree-32

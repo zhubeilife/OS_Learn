@@ -5,7 +5,6 @@
   </component>
   <component name="CidrRootsConfiguration">
     <sourceRoots>
-      <file path="$PROJECT_DIR$/jyy-os-2023/abstract-machine" />
       <file path="$PROJECT_DIR$/jyy-os-2023/exercise/L0/kernel" />
       <file path="$PROJECT_DIR$/jyy-os-2023/exercise/L1/kernel" />
       <file path="$PROJECT_DIR$/jyy-os-2023/exercise/L2/kernel" />
@@ -22,17 +21,17 @@
   <component name="MakefileSettings">
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/jyy-os-2023/exercise/M1/pstree" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/jyy-os-2023/exercise/L0/kernel" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/jyy-os-2023/exercise/M1/pstree" />
+            <option value="$PROJECT_DIR$/jyy-os-2023/exercise/L0/kernel" />
           </set>
         </option>
         <option name="version" value="2" />
       </MakefileProjectSettings>
     </option>
   </component>
-  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/jyy-os-2023/exercise/M1/pstree">
+  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/jyy-os-2023/exercise/L0/kernel">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>
