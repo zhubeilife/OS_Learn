@@ -5,6 +5,7 @@
   </component>
   <component name="CidrRootsConfiguration">
     <sourceRoots>
+      <file path="$PROJECT_DIR$/jyy-os-2023/abstract-machine" />
       <file path="$PROJECT_DIR$/jyy-os-2023/exercise/M1/pstree" />
     </sourceRoots>
   </component>
