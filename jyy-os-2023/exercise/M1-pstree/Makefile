@@ -15,22 +15,22 @@ CFLAGS += -O1 -std=gnu11 -ggdb -Wall -Werror -Wno-unused-result -Wno-unused-valu
 .DEFAULT_GOAL := commit-and-make
 commit-and-make: git all
 
-$(NAME)-arm: $(DEPS) # 64bit binary
-	gcc $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
+$(NAME): $(DEPS) # native binary
+	gcc $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
 
 $(NAME)-64: $(DEPS) # 64bit binary
-	gcc -m64 $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
+	gcc -m64 $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
 
 $(NAME)-32: $(DEPS) # 32bit binary
-	gcc -m32 $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
- 
+	gcc -m32 $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
+
 $(NAME)-64.so: $(DEPS) # 64bit shared library
-	gcc -fPIC -shared -m64 $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
+	gcc -fPIC -shared -m64 $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
 
 $(NAME)-32.so: $(DEPS) # 32bit shared library
-	gcc -fPIC -shared -m32 $(CFLAGS) pstree.c -o $@ $(LDFLAGS)
+	gcc -fPIC -shared -m32 $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
 
 clean:
-	rm -f $(NAME)-64 $(NAME)-32 $(NAME)-64.so $(NAME)-32.so
+	rm -f $(NAME) $(NAME)-64 $(NAME)-32 $(NAME)-64.so $(NAME)-32.so
 
 #include ../Makefile.lab
