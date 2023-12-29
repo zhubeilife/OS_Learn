@@ -14,6 +14,16 @@ void __am_init_timer_irq();
 void __am_pmem_map(void *va, void *pa, int prot);
 void __am_pmem_unmap(void *va);
 
+// modify from https://public-inbox.org/bug-gnulib/6817661.3gVJk7oQnW@omega/T/
+#if __GLIBC__ >= 2 && __GLIBC_MINOR__ >33
+# undef SIGSTKSZ
+# if defined __ia64__
+#  define SIGSTKSZ 262144
+# else
+#  define SIGSTKSZ 16384
+# endif
+#endif
+
 // per-cpu structure
 typedef struct {
   void *vm_head;
