@@ -43,6 +43,7 @@ void print_key() {
   }
 }
 
+// tile:瓷砖/小方块
 static void draw_tile(int x, int y, int w, int h, uint32_t color) {
   uint32_t pixels[w * h]; // WARNING: large stack-allocated memory
   AM_GPU_FBDRAW_T event = {
@@ -55,7 +56,15 @@ static void draw_tile(int x, int y, int w, int h, uint32_t color) {
   ioe_write(AM_GPU_FBDRAW, &event);
 }
 
-void splash() {
+static void draw_point(int x, int y, uint32_t color) {
+  AM_GPU_FBDRAW_T event = {
+    .x = x, .y = y, .w = 1, .h = 1, .sync = 1,
+    .pixels = &color,
+  };
+  ioe_write(AM_GPU_FBDRAW, &event);
+}
+
+void splash_demo() {
   AM_GPU_CONFIG_T info = {0};
   ioe_read(AM_GPU_CONFIG, &info);
   w = info.width;
@@ -66,6 +75,40 @@ void splash() {
       if ((x & 1) ^ (y & 1)) {
         draw_tile(x * SIDE, y * SIDE, SIDE, SIDE, 0xffffff); // white
       }
+    }
+  }
+}
+
+int get_image_index(int x, int y, int w, int h, int image_w, int image_h)
+{
+  int x_convert = image_w * x / w;
+  int y_convert = image_h * y / h;
+  return y_convert * image_w + x_convert;
+}
+
+void test_draw_point() {
+  AM_GPU_CONFIG_T info = {0};
+  ioe_read(AM_GPU_CONFIG, &info);
+  w = info.width;
+  h = info.height;
+
+  for (int x = 0; x <= w/2; x ++) {
+    for (int y = 0; y <= h/2; y++) {
+       draw_point(x, y, 0x00ff00);
+    }
+  }
+}
+
+void splash() {
+  AM_GPU_CONFIG_T info = {0};
+  ioe_read(AM_GPU_CONFIG, &info);
+  w = info.width;
+  h = info.height;
+
+  for (int x = 0; x <= w; x ++) {
+    for (int y = 0; y <= h; y++) {
+      // paint point at (x, y)
+      draw_point(x, y, RGBImage[get_image_index(x, y, w, h, image_w, image_h)]);
     }
   }
 }
