@@ -14,6 +14,8 @@
 #include <klib.h>
 #include <klib-macros.h>
 
+#include "rgb.h"
+
 #define SIDE 16
 
 static int w, h;  // Screen size
@@ -33,6 +35,11 @@ void print_key() {
     puts("Key pressed: ");
     puts(key_names[event.keycode]);
     puts("\n");
+    if (event.keycode == AM_KEY_ESCAPE)
+    {
+      puts("say good night to the world!\n");
+      halt(0);
+    }
   }
 }
 
