@@ -18,119 +18,140 @@
 
 #define SIDE 16
 
-static int w, h;  // Screen size
+static int w, h; // Screen size
 
 #define KEYNAME(key) \
   [AM_KEY_##key] = #key,
-static const char *key_names[] = { AM_KEYS(KEYNAME) };
+static const char* key_names[] = {AM_KEYS(KEYNAME)};
 
-static inline void puts(const char *s) {
-  for (; *s; s++) putch(*s);
+static inline void puts(const char* s)
+{
+    for (; *s; s++) putch(*s);
 }
 
-void print_key() {
-  AM_INPUT_KEYBRD_T event = { .keycode = AM_KEY_NONE };
-  ioe_read(AM_INPUT_KEYBRD, &event);
-  if (event.keycode != AM_KEY_NONE && event.keydown) {
-    puts("Key pressed: ");
-    puts(key_names[event.keycode]);
-    puts("\n");
-    if (event.keycode == AM_KEY_ESCAPE)
+void print_key()
+{
+    AM_INPUT_KEYBRD_T event = {.keycode = AM_KEY_NONE};
+    ioe_read(AM_INPUT_KEYBRD, &event);
+    if (event.keycode != AM_KEY_NONE && event.keydown)
     {
-      puts("say good night to the world!\n");
-      halt(0);
+        puts("Key pressed: ");
+        puts(key_names[event.keycode]);
+        puts("\n");
+        if (event.keycode == AM_KEY_ESCAPE)
+        {
+            puts("say good night to the world!\n");
+            halt(0);
+        }
     }
-  }
 }
 
 // tile:瓷砖/小方块
-static void draw_tile(int x, int y, int w, int h, uint32_t color) {
-  uint32_t pixels[w * h]; // WARNING: large stack-allocated memory
-  AM_GPU_FBDRAW_T event = {
-    .x = x, .y = y, .w = w, .h = h, .sync = 1,
-    .pixels = pixels,
-  };
-  for (int i = 0; i < w * h; i++) {
-    pixels[i] = color;
-  }
-  ioe_write(AM_GPU_FBDRAW, &event);
-}
-
-static void draw_point(int x, int y, uint32_t color) {
-  AM_GPU_FBDRAW_T event = {
-    .x = x, .y = y, .w = 1, .h = 1, .sync = 1,
-    .pixels = &color,
-  };
-  ioe_write(AM_GPU_FBDRAW, &event);
-}
-
-void splash_demo() {
-  AM_GPU_CONFIG_T info = {0};
-  ioe_read(AM_GPU_CONFIG, &info);
-  w = info.width;
-  h = info.height;
-
-  for (int x = 0; x * SIDE <= w; x ++) {
-    for (int y = 0; y * SIDE <= h; y++) {
-      if ((x & 1) ^ (y & 1)) {
-        draw_tile(x * SIDE, y * SIDE, SIDE, SIDE, 0xffffff); // white
-      }
+static void draw_tile(int x, int y, int w, int h, uint32_t color)
+{
+    uint32_t pixels[w * h]; // WARNING: large stack-allocated memory
+    AM_GPU_FBDRAW_T event = {
+        .x = x, .y = y, .w = w, .h = h, .sync = 1,
+        .pixels = pixels,
+    };
+    for (int i = 0; i < w * h; i++)
+    {
+        pixels[i] = color;
     }
-  }
+    ioe_write(AM_GPU_FBDRAW, &event);
+}
+
+static void draw_point(int x, int y, uint32_t color)
+{
+    AM_GPU_FBDRAW_T event = {
+        .x = x, .y = y, .w = 1, .h = 1, .sync = 1,
+        .pixels = &color,
+    };
+    ioe_write(AM_GPU_FBDRAW, &event);
+}
+
+void splash_demo()
+{
+    AM_GPU_CONFIG_T info = {0};
+    ioe_read(AM_GPU_CONFIG, &info);
+    w = info.width;
+    h = info.height;
+
+    for (int x = 0; x * SIDE <= w; x++)
+    {
+        for (int y = 0; y * SIDE <= h; y++)
+        {
+            if ((x & 1) ^ (y & 1))
+            {
+                draw_tile(x * SIDE, y * SIDE, SIDE, SIDE, 0xffffff); // white
+            }
+        }
+    }
 }
 
 int get_image_index(int x, int y, int w, int h, int image_w, int image_h)
 {
-  int x_convert = image_w * x / w;
-  int y_convert = image_h * y / h;
-  return y_convert * image_w + x_convert;
+    int x_convert = image_w * x / w;
+    int y_convert = image_h * y / h;
+    return y_convert * image_w + x_convert;
 }
 
-void test_draw_point() {
-  AM_GPU_CONFIG_T info = {0};
-  ioe_read(AM_GPU_CONFIG, &info);
-  w = info.width;
-  h = info.height;
+void test_draw_point()
+{
+    AM_GPU_CONFIG_T info = {0};
+    ioe_read(AM_GPU_CONFIG, &info);
+    w = info.width;
+    h = info.height;
 
-  for (int x = 0; x <= w/2; x ++) {
-    for (int y = 0; y <= h/2; y++) {
-       draw_point(x, y, 0x00ff00);
+    for (int x = 0; x <= w / 2; x++)
+    {
+        for (int y = 0; y <= h / 2; y++)
+        {
+            draw_point(x, y, 0x00ff00);
+        }
     }
-  }
 }
 
-void splash() {
-  AM_GPU_CONFIG_T info = {0};
-  ioe_read(AM_GPU_CONFIG, &info);
-  w = info.width;
-  h = info.height;
+void splash()
+{
+    AM_GPU_CONFIG_T info = {0};
+    ioe_read(AM_GPU_CONFIG, &info);
+    w = info.width;
+    h = info.height;
 
-  for (int x = 0; x <= w; x ++) {
-    for (int y = 0; y <= h; y++) {
-      // paint point at (x, y)
-      int index = get_image_index(x, y, w, h, image_w, image_h);
-      unsigned char R = RGBImage[index * 3];
-      unsigned char G = RGBImage[index * 3 + 1];
-      unsigned char B = RGBImage[index * 3 + 2];
-      uint32_t color = 0;
-      draw_point(x, y, color);
+    for (int x = 0; x <= w; x++)
+    {
+        for (int y = 0; y <= h; y++)
+        {
+            // paint point at (x, y)
+            int index = get_image_index(x, y, w, h, image_w, image_h);
+            unsigned char R = RGBImage[index * 3];
+            unsigned char G = RGBImage[index * 3 + 1];
+            unsigned char B = RGBImage[index * 3 + 2];
+            uint32_t color = 0x000000;
+            color |= R << 16;
+            color |= G << 8;
+            color |= B;
+            draw_point(x, y, color);
+        }
     }
-  }
 }
 
 // Operating system is a C program!
-int main(const char *args) {
-  ioe_init();
+int main(const char* args)
+{
+    ioe_init();
 
-  puts("mainargs = \"");
-  puts(args);  // make run mainargs=xxx
-  puts("\"\n");
+    puts("mainargs = \"");
+    puts(args); // make run mainargs=xxx
+    puts("\"\n");
 
-  splash();
+    splash();
 
-  puts("Press any key to see its key code...\n");
-  while (1) {
-    print_key();
-  }
-  return 0;
+    puts("Press any key to see its key code...\n");
+    while (1)
+    {
+        print_key();
+    }
+    return 0;
 }
