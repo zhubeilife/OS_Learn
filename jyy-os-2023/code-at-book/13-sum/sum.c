@@ -7,6 +7,11 @@ long sum = 0;
 void Tsum() {
   for (int i = 0; i < N; i++) {
     sum++;
+    /*
+      for x86 assembly
+      asm volatile("incq %0" : "+m"(sum));
+    */
+
   }
 }
 

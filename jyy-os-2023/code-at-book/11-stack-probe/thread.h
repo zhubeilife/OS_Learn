@@ -29,6 +29,15 @@ void create(void *fn) {
     .status = T_LIVE,
     .entry = fn,
   };
+
+  /* code to set stack size
+  pthread_attr_t attr;
+  pthread_attr_init(&attr);
+  size_t stack_size = 1024 * 1024;  // 1MB stack size
+  pthread_attr_setstacksize(&attr, stack_size);
+  pthread_create(&(tptr->thread), &attr, wrapper, tptr);
+  */
+
   pthread_create(&(tptr->thread), NULL, wrapper, tptr);
   ++tptr;
 }
