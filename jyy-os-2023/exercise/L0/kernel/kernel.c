@@ -108,7 +108,12 @@ void splash() {
   for (int x = 0; x <= w; x ++) {
     for (int y = 0; y <= h; y++) {
       // paint point at (x, y)
-      draw_point(x, y, RGBImage[get_image_index(x, y, w, h, image_w, image_h)]);
+      int index = get_image_index(x, y, w, h, image_w, image_h);
+      unsigned char R = RGBImage[index * 3];
+      unsigned char G = RGBImage[index * 3 + 1];
+      unsigned char B = RGBImage[index * 3 + 2];
+      uint32_t color = 0;
+      draw_point(x, y, color);
     }
   }
 }
