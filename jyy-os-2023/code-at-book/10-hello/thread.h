@@ -22,7 +22,7 @@ void *wrapper(void *arg) {
   return NULL;
 }
 
-void create(void *fn) {
+void spawn(void *fn) {
   assert(tptr - tpool < NTHREAD);
   *tptr = (struct thread) {
     .id = tptr - tpool + 1,
