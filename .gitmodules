@@ -13,6 +13,3 @@
 [submodule "learn-assembly-on-Apple-Silicon-Mac"]
 	path = learn-assembly-on-Apple-Silicon-Mac
 	url = git@github.com:zhubeilife/learn-assembly-on-Apple-Silicon-Mac.git
-[submodule "jyy-os-2023/mosaic"]
-	path = jyy-os-2023/mosaic
-	url = https://github.com/jiangyy/mosaic.git
