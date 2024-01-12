@@ -1,0 +1,105 @@
+
+sum.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <wrapper>:
+   0:	48 83 ec 08          	sub    $0x8,%rsp
+   4:	48 89 f8             	mov    %rdi,%rax
+   7:	8b 3f                	mov    (%rdi),%edi
+   9:	ff 50 10             	call   *0x10(%rax)
+   c:	31 c0                	xor    %eax,%eax
+   e:	48 83 c4 08          	add    $0x8,%rsp
+  12:	c3                   	ret
+  13:	66 66 2e 0f 1f 84 00 	data16 cs nopw 0x0(%rax,%rax,1)
+  1a:	00 00 00 00 
+  1e:	66 90                	xchg   %ax,%ax
+
+0000000000000020 <Tsum>:
+  20:	48 81 05 00 00 00 00 	addq   $0x5f5e100,0x0(%rip)        # 2b <Tsum+0xb> 0x5f5e100 --> 100000000
+  27:	00 e1 f5 05 
+  2b:	c3                   	ret
+  2c:	0f 1f 40 00          	nopl   0x0(%rax)
+
+0000000000000030 <create>:
+  30:	48 83 ec 08          	sub    $0x8,%rsp
+  34:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 3b <create+0xb>
+  3b:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 42 <create+0x12>
+  42:	48 89 c8             	mov    %rcx,%rax
+  45:	48 29 d0             	sub    %rdx,%rax
+  48:	48 3d e8 05 00 00    	cmp    $0x5e8,%rax
+  4e:	7f 40                	jg     90 <create+0x60>
+  50:	48 c1 f8 03          	sar    $0x3,%rax
+  54:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  58:	48 89 79 10          	mov    %rdi,0x10(%rcx)
+  5c:	31 f6                	xor    %esi,%esi
+  5e:	69 c0 ab aa aa aa    	imul   $0xaaaaaaab,%eax,%eax
+  64:	0f 11 01             	movups %xmm0,(%rcx)
+  67:	48 8d 79 08          	lea    0x8(%rcx),%rdi
+  6b:	c7 41 04 01 00 00 00 	movl   $0x1,0x4(%rcx)
+  72:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 79 <create+0x49>
+  79:	83 c0 01             	add    $0x1,%eax
+  7c:	89 01                	mov    %eax,(%rcx)
+  7e:	e8 00 00 00 00       	call   83 <create+0x53>
+  83:	48 83 05 00 00 00 00 	addq   $0x18,0x0(%rip)        # 8b <create+0x5b>
+  8a:	18 
+  8b:	48 83 c4 08          	add    $0x8,%rsp
+  8f:	c3                   	ret
+  90:	48 8d 0d 00 00 00 00 	lea    0x0(%rip),%rcx        # 97 <create+0x67>
+  97:	ba 1a 00 00 00       	mov    $0x1a,%edx
+  9c:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # a3 <create+0x73>
+  a3:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # aa <create+0x7a>
+  aa:	e8 00 00 00 00       	call   af <create+0x7f>
+  af:	90                   	nop
+
+00000000000000b0 <join>:
+  b0:	55                   	push   %rbp
+  b1:	53                   	push   %rbx
+  b2:	48 8d 1d 00 00 00 00 	lea    0x0(%rip),%rbx        # b9 <join+0x9>
+  b9:	48 8d ab 00 06 00 00 	lea    0x600(%rbx),%rbp
+  c0:	48 83 ec 08          	sub    $0x8,%rsp
+  c4:	eb 13                	jmp    d9 <join+0x29>
+  c6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  cd:	00 00 00 
+  d0:	48 83 c3 18          	add    $0x18,%rbx
+  d4:	48 39 eb             	cmp    %rbp,%rbx
+  d7:	74 20                	je     f9 <join+0x49>
+  d9:	83 3b 01             	cmpl   $0x1,(%rbx)
+  dc:	75 f2                	jne    d0 <join+0x20>
+  de:	48 8b 7b 04          	mov    0x4(%rbx),%rdi
+  e2:	31 f6                	xor    %esi,%esi
+  e4:	48 83 c3 18          	add    $0x18,%rbx
+  e8:	e8 00 00 00 00       	call   ed <join+0x3d>
+  ed:	c7 43 e8 02 00 00 00 	movl   $0x2,-0x18(%rbx)
+  f4:	48 39 eb             	cmp    %rbp,%rbx
+  f7:	75 e0                	jne    d9 <join+0x29>
+  f9:	48 83 c4 08          	add    $0x8,%rsp
+  fd:	5b                   	pop    %rbx
+  fe:	5d                   	pop    %rbp
+  ff:	c3                   	ret
+
+Disassembly of section .text.exit:
+
+0000000000000000 <cleanup>:
+   0:	31 c0                	xor    %eax,%eax
+   2:	e9 00 00 00 00       	jmp    7 <cleanup+0x7>
+
+Disassembly of section .text.startup:
+
+0000000000000000 <main>:
+   0:	53                   	push   %rbx
+   1:	48 8d 1d 00 00 00 00 	lea    0x0(%rip),%rbx        # 8 <main+0x8>
+   8:	48 89 df             	mov    %rbx,%rdi
+   b:	e8 00 00 00 00       	call   10 <main+0x10>
+  10:	48 89 df             	mov    %rbx,%rdi
+  13:	e8 00 00 00 00       	call   18 <main+0x18>
+  18:	31 c0                	xor    %eax,%eax
+  1a:	e8 00 00 00 00       	call   1f <main+0x1f>
+  1f:	48 8b 35 00 00 00 00 	mov    0x0(%rip),%rsi        # 26 <main+0x26>
+  26:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 2d <main+0x2d>
+  2d:	31 c0                	xor    %eax,%eax
+  2f:	e8 00 00 00 00       	call   34 <main+0x34>
+  34:	31 c0                	xor    %eax,%eax
+  36:	5b                   	pop    %rbx
+  37:	c3                   	ret

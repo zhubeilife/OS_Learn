@@ -1,0 +1,102 @@
+
+sum.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <wrapper>:
+   0:	48 83 ec 08          	sub    $0x8,%rsp
+   4:	48 89 f8             	mov    %rdi,%rax
+   7:	8b 3f                	mov    (%rdi),%edi
+   9:	ff 50 10             	call   *0x10(%rax)
+   c:	b8 00 00 00 00       	mov    $0x0,%eax
+  11:	48 83 c4 08          	add    $0x8,%rsp
+  15:	c3                   	ret
+
+0000000000000016 <Tsum>:
+  16:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 1d <Tsum+0x7>   --> %rdx = sum
+  1d:	48 8d 42 01          	lea    0x1(%rdx),%rax
+  21:	48 81 c2 01 e1 f5 05 	add    $0x5f5e101,%rdx
+  28:	48 89 c1             	mov    %rax,%rcx
+  2b:	48 83 c0 01          	add    $0x1,%rax
+  2f:	48 39 d0             	cmp    %rdx,%rax
+  32:	75 f4                	jne    28 <Tsum+0x12>
+  34:	48 89 0d 00 00 00 00 	mov    %rcx,0x0(%rip)        # 3b <Tsum+0x25>  --> sum = %rcx
+  3b:	c3                   	ret
+
+000000000000003c <create>:
+  3c:	48 83 ec 08          	sub    $0x8,%rsp
+  40:	48 8b 15 00 00 00 00 	mov    0x0(%rip),%rdx        # 47 <create+0xb>
+  47:	48 8d 0d 00 00 00 00 	lea    0x0(%rip),%rcx        # 4e <create+0x12>
+  4e:	48 89 d0             	mov    %rdx,%rax
+  51:	48 29 c8             	sub    %rcx,%rax
+  54:	48 3d e8 05 00 00    	cmp    $0x5e8,%rax
+  5a:	7f 4a                	jg     a6 <create+0x6a>
+  5c:	66 0f ef c0          	pxor   %xmm0,%xmm0
+  60:	0f 11 02             	movups %xmm0,(%rdx)
+  63:	48 c1 f8 03          	sar    $0x3,%rax
+  67:	69 c0 ab aa aa aa    	imul   $0xaaaaaaab,%eax,%eax
+  6d:	8d 40 01             	lea    0x1(%rax),%eax
+  70:	89 02                	mov    %eax,(%rdx)
+  72:	c7 42 04 01 00 00 00 	movl   $0x1,0x4(%rdx)
+  79:	48 89 7a 10          	mov    %rdi,0x10(%rdx)
+  7d:	48 8b 0d 00 00 00 00 	mov    0x0(%rip),%rcx        # 84 <create+0x48>
+  84:	48 8d 79 08          	lea    0x8(%rcx),%rdi
+  88:	48 8d 15 00 00 00 00 	lea    0x0(%rip),%rdx        # 8f <create+0x53>
+  8f:	be 00 00 00 00       	mov    $0x0,%esi
+  94:	e8 00 00 00 00       	call   99 <create+0x5d>
+  99:	48 83 05 00 00 00 00 	addq   $0x18,0x0(%rip)        # a1 <create+0x65>
+  a0:	18 
+  a1:	48 83 c4 08          	add    $0x8,%rsp
+  a5:	c3                   	ret
+  a6:	48 8d 0d 00 00 00 00 	lea    0x0(%rip),%rcx        # ad <create+0x71>
+  ad:	ba 1a 00 00 00       	mov    $0x1a,%edx
+  b2:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # b9 <create+0x7d>
+  b9:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # c0 <create+0x84>
+  c0:	e8 00 00 00 00       	call   c5 <join>
+
+00000000000000c5 <join>:
+  c5:	55                   	push   %rbp
+  c6:	53                   	push   %rbx
+  c7:	48 83 ec 08          	sub    $0x8,%rsp
+  cb:	48 8d 1d 00 00 00 00 	lea    0x0(%rip),%rbx        # d2 <join+0xd>
+  d2:	48 8d ab 00 06 00 00 	lea    0x600(%rbx),%rbp
+  d9:	eb 09                	jmp    e4 <join+0x1f>
+  db:	48 83 c3 18          	add    $0x18,%rbx
+  df:	48 39 eb             	cmp    %rbp,%rbx
+  e2:	74 1b                	je     ff <join+0x3a>
+  e4:	83 3b 01             	cmpl   $0x1,(%rbx)
+  e7:	75 f2                	jne    db <join+0x16>
+  e9:	48 8b 7b 04          	mov    0x4(%rbx),%rdi
+  ed:	be 00 00 00 00       	mov    $0x0,%esi
+  f2:	e8 00 00 00 00       	call   f7 <join+0x32>
+  f7:	c7 03 02 00 00 00    	movl   $0x2,(%rbx)
+  fd:	eb dc                	jmp    db <join+0x16>
+  ff:	48 83 c4 08          	add    $0x8,%rsp
+ 103:	5b                   	pop    %rbx
+ 104:	5d                   	pop    %rbp
+ 105:	c3                   	ret
+
+0000000000000106 <cleanup>:
+ 106:	48 83 ec 08          	sub    $0x8,%rsp
+ 10a:	b8 00 00 00 00       	mov    $0x0,%eax
+ 10f:	e8 00 00 00 00       	call   114 <cleanup+0xe>
+ 114:	48 83 c4 08          	add    $0x8,%rsp
+ 118:	c3                   	ret
+
+0000000000000119 <main>:
+ 119:	53                   	push   %rbx
+ 11a:	48 8d 1d 00 00 00 00 	lea    0x0(%rip),%rbx        # 121 <main+0x8>
+ 121:	48 89 df             	mov    %rbx,%rdi
+ 124:	e8 00 00 00 00       	call   129 <main+0x10>
+ 129:	48 89 df             	mov    %rbx,%rdi
+ 12c:	e8 00 00 00 00       	call   131 <main+0x18>
+ 131:	b8 00 00 00 00       	mov    $0x0,%eax
+ 136:	e8 00 00 00 00       	call   13b <main+0x22>
+ 13b:	48 8b 35 00 00 00 00 	mov    0x0(%rip),%rsi        # 142 <main+0x29>
+ 142:	48 8d 3d 00 00 00 00 	lea    0x0(%rip),%rdi        # 149 <main+0x30>
+ 149:	b8 00 00 00 00       	mov    $0x0,%eax
+ 14e:	e8 00 00 00 00       	call   153 <main+0x3a>
+ 153:	b8 00 00 00 00       	mov    $0x0,%eax
+ 158:	5b                   	pop    %rbx
+ 159:	c3                   	ret
