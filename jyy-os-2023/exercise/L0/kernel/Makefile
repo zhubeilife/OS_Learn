@@ -10,3 +10,6 @@ endif
 include $(AM_HOME)/Makefile
 #include ../Makefile.lab
 #image: git
+
+mac-run:
+	qemu-system-x86_64 -drive format=raw,file=kernel-x86_64-qemu
