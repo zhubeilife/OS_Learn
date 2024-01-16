@@ -13,6 +13,8 @@ include_directories(
         jyy-os-2023/abstract-machine/klib/include
 )
 
+add_executable(13-sum jyy-os-2023/code-at-book/13-sum/sum.c)
+
 add_executable(L0 jyy-os-2023/exercise/L0/kernel/kernel.c)
 add_executable(L1 jyy-os-2023/exercise/L1/kernel/kernel.c)
 add_executable(L2 jyy-os-2023/exercise/L2/kernel/kernel.c)
