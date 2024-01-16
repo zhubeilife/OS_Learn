@@ -1,0 +1,1 @@
+-Wall -Werror -ggdb -fsanitize=thread
