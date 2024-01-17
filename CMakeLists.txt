@@ -14,6 +14,7 @@ include_directories(
 )
 
 add_executable(13-sum jyy-os-2023/code-at-book/13-sum/sum.c)
+add_executable(16-peterson jyy-os-2023/code-at-book/16-peterson/peterson.c)
 
 add_executable(L0 jyy-os-2023/exercise/L0/kernel/kernel.c)
 add_executable(L1 jyy-os-2023/exercise/L1/kernel/kernel.c)
