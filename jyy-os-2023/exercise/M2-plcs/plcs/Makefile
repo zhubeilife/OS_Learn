@@ -4,3 +4,6 @@ all: $(NAME)-64 $(NAME)-32
 LDFLAGS += -lpthread
 
 include ../../Makefile
+
+run: $(NAME)
+	./$(NAME)
