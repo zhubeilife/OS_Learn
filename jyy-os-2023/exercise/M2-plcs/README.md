@@ -35,6 +35,12 @@ OS2023-M2 提交结果
 
 LCS 是一个十分经典的算法问题，也是 “动态规划” 算法的典型代表。大家可以在互联网上查找 LCS 问题的[求解方法](https://www.geeksforgeeks.org/longest-common-subsequence-dp-4/)；或是在互联网上寻找讲解最长公共子序列的视频教程。
 
+[video](https://www.bilibili.com/video/BV1ey4y1d7oD/?spm_id_from=333.337.search-card.all.click&vd_source=eb657808cf7007530365293d52c64129)
+
+![](video_1.png)
+
+![](video_2.png)
+
 ## 2. 实验描述
 
 我们发现互联网上广泛流传的算法并不能有效地利用多处理器并行计算的能力。在这个实验中，我们已经提供了一个单线程的 LCS 算法实现。你需要将它并行化，使它能利用多处理器并行的计算力加速计算。注意：存在一些算法 trick 能加速 LCS 的计算，但我们的要求是将我们给出的 naive 动态规划算法并行化。
