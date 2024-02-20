@@ -14,6 +14,11 @@ int result;
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #define MAX3(x, y, z) MAX(MAX(x, y), z)
 
+void TworkerAnts(int id)
+{
+
+}
+
 void Tworker(int id) {
   if (id != 1) {
     // This is a serial implementation
@@ -41,12 +46,26 @@ int main(int argc, char *argv[]) {
   M = strlen(B);
   T = !argv[1] ? 1 : atoi(argv[1]);
 
-  // Add preprocessing code here
-
-  for (int i = 0; i < T; i++) {
-    create(Tworker);
+  if (T == 1)
+  {
+    for (int i = 0; i < T; i++) {
+      create(Tworker);
+    }
+    join();  // Wait for all workers
   }
-  join();  // Wait for all workers
+  else
+  {
+    for(int round=0; round < N+M-1; round++){
+      // 1. 计算出本轮能够计算的单元格
+
+      // 2. 将任务分配给线程执行
+      create(TworkerAnts);
+
+      // 3. 等待线程执行完毕
+      join();
+    }
+    result = dp[N - 1][M - 1];
+  }
 
   printf("%d\n", result);
 }
