@@ -1,14 +1,14 @@
 [submodule "ostep-code"]
-	path = ostep-code
+	path = ostep/ostep-code
 	url = https://github.com/remzi-arpacidusseau/ostep-code
 [submodule "ostep-projects"]
-	path = ostep-projects
+	path = ostep/ostep-projects
 	url = https://github.com/remzi-arpacidusseau/ostep-projects.git
 [submodule "ostep-homework"]
-	path = ostep-homework
+	path = ostep/ostep-homework
 	url = https://github.com/remzi-arpacidusseau/ostep-homework.git
 [submodule "jyy-os-2023/lab/os-workbench"]
-	path = jyy-os-2023/lab/os-workbench
+	path = assembly/jyy-os-2023/lab/os-workbench
 	url = https://git.nju.edu.cn/jyy/os-workbench.git
 [submodule "learn-assembly-on-Apple-Silicon-Mac"]
 	path = learn-assembly-on-Apple-Silicon-Mac
