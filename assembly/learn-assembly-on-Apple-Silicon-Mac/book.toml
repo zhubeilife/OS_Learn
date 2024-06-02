@@ -1,0 +1,10 @@
+[book]
+authors = ["Evian-Zhang"]
+language = "zh-Hans"
+multilingual = false
+src = "src"
+title = "在 Apple Silicon Mac 上入门汇编语言"
+
+[output.html]
+mathjax-support = true
+git-repository-url = "https://github.com/Evian-Zhang/learn-assembly-on-Apple-Silicon-Mac"
