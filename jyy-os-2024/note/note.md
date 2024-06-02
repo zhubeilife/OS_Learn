@@ -24,3 +24,7 @@ static inline int32_t rv32ima_step(struct CPUState *state, uint32_t elapsedUs) {
     #define REG(x) (state->regs[x])
     #define MEM(x) (&state->mem[x])
 ```
+
+## 2. 应用视角的操作系统
+
+

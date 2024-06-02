@@ -4,7 +4,7 @@
 int hanoi(int n, char from, char to, char via);
 
 int main() {
-    int n = 4;
+    int n = 10;
     char from = 'A';
     char to = 'B';
     char via = 'C';

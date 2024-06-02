@@ -2,10 +2,13 @@ cmake_minimum_required(VERSION 3.10)
 
 project(OSLearn)
 
+FILE(GLOB_RECURSE os-demos jyy-os-2024/os-demos *.c)
+
 set(SOURCE_FILES
         jyy-os-2023/exercise/L0/kernel/kernel.c
         jyy-os-2023/exercise/L1/kernel/kernel.c
         jyy-os-2023/exercise/L2/kernel/kernel.c
+        ${os-demoes}
 )
 
 include_directories(
@@ -21,3 +24,9 @@ add_executable(L1 jyy-os-2023/exercise/L1/kernel/kernel.c)
 add_executable(L2 jyy-os-2023/exercise/L2/kernel/kernel.c)
 add_executable(M1 jyy-os-2023/exercise/M1-pstree/pstree/pstree.c)
 add_executable(M2 jyy-os-2023/exercise/M2-plcs/plcs/plcs.c)
+
+add_executable(introduction-minimal jyy-os-2024/os-demos/introduction/minimal/hello.c)
+add_executable(intro_hanoi_r jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.c
+        jyy-os-2024/os-demos/introduction/hanoi/hanoi-r.c)
+add_executable(intro_hanoi_nr jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.c
+        jyy-os-2024/os-demos/introduction/hanoi/hanoi-nr.c)

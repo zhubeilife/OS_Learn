@@ -1,0 +1,34 @@
+
+minimal:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <_start>:
+  401000:	48 c7 c0 01 00 00 00 	mov    $0x1,%rax
+  401007:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+  40100e:	48 c7 c6 3c 10 40 00 	mov    $0x40103c,%rsi
+  401015:	48 c7 c2 1c 00 00 00 	mov    $0x1c,%rdx
+  40101c:	0f 05                	syscall 
+  40101e:	48 c7 c0 3c 00 00 00 	mov    $0x3c,%rax
+  401025:	48 c7 c7 01 00 00 00 	mov    $0x1,%rdi
+  40102c:	48 c7 c6 00 00 00 00 	mov    $0x0,%rsi
+  401033:	48 c7 c2 00 00 00 00 	mov    $0x0,%rdx
+  40103a:	0f 05                	syscall 
+
+000000000040103c <addr1>:
+  40103c:	1b 5b 30             	sbb    0x30(%rbx),%ebx
+  40103f:	31 3b                	xor    %edi,(%rbx)
+  401041:	33 31                	xor    (%rcx),%esi
+  401043:	6d                   	insl   (%dx),%es:(%rdi)
+  401044:	48                   	rex.W
+  401045:	65 6c                	gs insb (%dx),%es:(%rdi)
+  401047:	6c                   	insb   (%dx),%es:(%rdi)
+  401048:	6f                   	outsl  %ds:(%rsi),(%dx)
+  401049:	2c 20                	sub    $0x20,%al
+  40104b:	4f 53                	rex.WRXB push %r11
+  40104d:	20 57 6f             	and    %dl,0x6f(%rdi)
+  401050:	72 6c                	jb     4010be <addr2+0x66>
+  401052:	64 1b 5b 30          	sbb    %fs:0x30(%rbx),%ebx
+  401056:	6d                   	insl   (%dx),%es:(%rdi)
+  401057:	0a                   	.byte 0xa
