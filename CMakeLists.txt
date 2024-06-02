@@ -16,7 +16,8 @@ include_directories(
         jyy-os-2023/abstract-machine/klib/include
 )
 
-add_executable(13-sum jyy-os-2023/code-at-book/13-sum/sum.c)
+add_executable(13-sum jyy-os-2023/code-at-book/13-sum/sum.c
+        jyy-os-2024/labs/pstree/pstree.c)
 add_executable(16-peterson jyy-os-2023/code-at-book/16-peterson/peterson.c)
 
 add_executable(L0 jyy-os-2023/exercise/L0/kernel/kernel.c)
@@ -30,3 +31,4 @@ add_executable(intro_hanoi_r jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.
         jyy-os-2024/os-demos/introduction/hanoi/hanoi-r.c)
 add_executable(intro_hanoi_nr jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.c
         jyy-os-2024/os-demos/introduction/hanoi/hanoi-nr.c)
+add_executable(lab_pstree jyy-os-2024/labs/pstree/pstree.c)
