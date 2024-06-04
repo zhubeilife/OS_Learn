@@ -22,3 +22,6 @@
 [submodule "libs/nemu"]
 	path = libs/nemu
 	url = git@github.com:zhubeilife/nemu.git
+[submodule "libs/fceux-am"]
+	path = libs/fceux-am
+	url = git@github.com:zhubeilife/fceux-am.git
