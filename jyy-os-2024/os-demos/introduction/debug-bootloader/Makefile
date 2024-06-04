@@ -1,3 +1,5 @@
+#include ../../common.mk
+
 NAME := hello
 SRCS := hello.c
 export ARCH := x86-qemu
@@ -15,3 +17,4 @@ log:
 	     | sed "s#$(AM_HOME)#\AM#g" \
 	     | sed "s#$(PWD)#.#g" \
 	     > compile.log
+		# or use vim -
