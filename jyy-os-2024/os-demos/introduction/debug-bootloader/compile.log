@@ -1,15 +1,451 @@
-x86_64-linux-gnu-gcc -MMD -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -m32 -fno-pic -c -o AM/am/build/x86-qemu/src/x86/qemu/start32.o AM/am/src/x86/qemu/start32.S
-x86_64-linux-gnu-gcc -MMD -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -m32 -fno-pic -c -o AM/am/build/x86-qemu/src/x86/qemu/trap32.o AM/am/src/x86/qemu/trap32.S
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/am/build/x86-qemu/src/x86/qemu/trm.o AM/am/src/x86/qemu/trm.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/am/build/x86-qemu/src/x86/qemu/cte.o AM/am/src/x86/qemu/cte.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/am/build/x86-qemu/src/x86/qemu/ioe.o AM/am/src/x86/qemu/ioe.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/am/build/x86-qemu/src/x86/qemu/vme.o AM/am/src/x86/qemu/vme.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/am/src -IAM/am/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/am/build/x86-qemu/src/x86/qemu/mpe.o AM/am/src/x86/qemu/mpe.c
-x86_64-linux-gnu-ar rcs AM/am/build/am-x86-qemu.a AM/am/build/x86-qemu/src/x86/qemu/start32.o AM/am/build/x86-qemu/src/x86/qemu/trap32.o AM/am/build/x86-qemu/src/x86/qemu/trm.o AM/am/build/x86-qemu/src/x86/qemu/cte.o AM/am/build/x86-qemu/src/x86/qemu/ioe.o AM/am/build/x86-qemu/src/x86/qemu/vme.o AM/am/build/x86-qemu/src/x86/qemu/mpe.o
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/klib/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/klib/build/x86-qemu/src/stdio.o AM/klib/src/stdio.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/klib/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/klib/build/x86-qemu/src/string.o AM/klib/src/string.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/klib/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/klib/build/x86-qemu/src/stdlib.o AM/klib/src/stdlib.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/klib/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/klib/build/x86-qemu/src/int64.o AM/klib/src/int64.c
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -IAM/klib/include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o AM/klib/build/x86-qemu/src/cpp.o AM/klib/src/cpp.c
-x86_64-linux-gnu-ar rcs AM/klib/build/klib-x86-qemu.a AM/klib/build/x86-qemu/src/stdio.o AM/klib/build/x86-qemu/src/string.o AM/klib/build/x86-qemu/src/stdlib.o AM/klib/build/x86-qemu/src/int64.o AM/klib/build/x86-qemu/src/cpp.o
-x86_64-linux-gnu-gcc -std=gnu11 -O2 -MMD -Wall -Werror -I./include -IAM/am/include/ -IAM/klib/include/ -D__ISA__=\"x86\" -D__ISA_X86__ -D__ARCH__=x86-qemu -D__ARCH_X86_QEMU -D__PLATFORM__=qemu -D__PLATFORM_QEMU -DARCH_H=\"arch/x86-qemu.h\" -fno-asynchronous-unwind-tables -fno-builtin -fno-stack-protector -Wno-main -U_FORTIFY_SOURCE -fvisibility=hidden -m32 -fno-pic -fno-omit-frame-pointer -march=i386 -fcf-protection=none  -c -o ./build/x86-qemu/hello.o ./hello.c
+x86_64-linux-gnu-gcc
+    -MMD
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -m32
+    -fno-pic
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/start32.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/start32.S
+x86_64-linux-gnu-gcc
+    -MMD
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -m32
+    -fno-pic
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trap32.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/trap32.S
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trm.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/trm.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/cte.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/cte.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/ioe.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/ioe.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/vme.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/vme.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -IAM/am/src
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/mpe.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/mpe.c
+x86_64-linux-gnu-ar
+    rcs
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/am-x86-qemu.a
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/start32.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trap32.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trm.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/cte.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/ioe.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/vme.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/mpe.o
+    no
+    display
+    x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdio.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/stdio.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/string.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/string.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdlib.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/stdlib.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/int64.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/int64.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/cpp.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/cpp.c
+x86_64-linux-gnu-ar
+    rcs
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/klib-x86-qemu.a
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdio.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/string.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdlib.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/int64.o
+    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/cpp.o
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -O2
+    -MMD
+    -Wall
+    -Werror
+    -I./include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+
+    -c
+    -o
+    ./build/x86-qemu/hello.o
+    ./hello.c
+x86_64-linux-gnu-ld
+    -z
+    noexecstack
+    -melf_i386
+    -N
+    -Ttext-segment=0x00100000
+    -o
+    ./build/hello-x86-qemu.elf
+    --start-group
+    ./build/x86-qemu/hello.o
+    AM/am/build/am-x86-qemu.a
+    AM/klib/build/klib-x86-qemu.a
+    --end-group
+x86_64-linux-gnu-gcc
+    -static
+    -m32
+    -fno-pic
+    -Os
+    -nostdlib
+    -Ttext
+    0x7c00
+    -IAM/am/src
+    -o
+    bootblock.o
+    start.S
+    main.c
+python3 genboot.py bootblock.o
+(
+cat
+AM/am/src/x86/qemu/boot/bootblock.o;
+head
+-c
+1024
+/dev/zero;
+cat
+./build/hello-x86-qemu.elf
+)
+>
+./build/hello-x86-qemu
