@@ -1,4 +1,4 @@
-#include ../../common.mk
+include ../../common.mk
 
 NAME := hello
 SRCS := hello.c

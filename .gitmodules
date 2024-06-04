@@ -13,9 +13,9 @@
 [submodule "learn-assembly-on-Apple-Silicon-Mac"]
 	path = assembly/learn-assembly-on-Apple-Silicon-Mac
 	url = git@github.com:zhubeilife/learn-assembly-on-Apple-Silicon-Mac.git
-[submodule "libs/abstract-machine"]
-	path = libs/abstract-machine
-	url = https://github.com/NJU-ProjectN/abstract-machine.git
 [submodule "libs/mosaic"]
 	path = libs/mosaic
 	url = https://github.com/jiangyy/mosaic.git
+[submodule "libs/abstract-machine"]
+	path = libs/abstract-machine
+	url = git@github.com:NJU-ProjectN/abstract-machine.git
