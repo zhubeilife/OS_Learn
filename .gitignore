@@ -151,3 +151,6 @@ plcs-64
 /jyy-os-2024/os-demos/introduction/hanoi/hanoi-nr
 /jyy-os-2024/os-demos/introduction/hanoi/hanoi-r
 /Makefile
+/libs/yemu/idex.o
+/libs/yemu/yemu
+/libs/yemu/yemu.o

@@ -32,3 +32,4 @@ add_executable(intro_hanoi_r jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.
 add_executable(intro_hanoi_nr jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.c
         jyy-os-2024/os-demos/introduction/hanoi/hanoi-nr.c)
 add_executable(lab_pstree jyy-os-2024/labs/pstree/pstree.c)
+add_executable(yemy libs/yemu/idex.c libs/yemu/yemu.c libs/yemu/yemu.h)
