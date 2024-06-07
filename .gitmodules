@@ -25,3 +25,6 @@
 [submodule "libs/fceux-am"]
 	path = libs/fceux-am
 	url = git@github.com:zhubeilife/fceux-am.git
+[submodule "libs/am-kernels"]
+	path = libs/am-kernels
+	url = git@github.com:zhubeilife/am-kernels.git
