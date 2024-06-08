@@ -4,6 +4,7 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/jyy-os-2023/lab/os-workbench" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/abstract-machine" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/am-kernels" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/fceux-am" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/mosaic" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu" vcs="Git" />
