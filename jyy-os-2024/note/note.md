@@ -71,4 +71,22 @@ Everything (高级语言代码、机器代码) 都是状态机；而编译器实
 
 ## others
 
+### qemu
+
 + ctrl + a，然后再按x键，就可以退出qemu的环境
+
+### mac m1 运行os-labs程序
+
++ 首先mac m1缺少 x86_64-linux-gnu-* 的编译环境，所以采用OrbStack的Linux Machine安装arm64版本的linux，然后后用这个来进行编译
++ OrbStack的没有桌面环境，如果只是为了显示字符界面的话，可以在makefile中添加如下脚本，运行qemu的时候用nographic选项
+```makefile
+ifeq ($(strip $(shell uname -s)), Linux) # Darwin, Linux
+  ifeq ($(shell [ ! $(DISPLAY) ] && echo true || echo false), true)
+    $(info no display)
+    QEMU_FLAGS += -nographic
+  else
+    $(info has one ${DISPLAY})
+  endif
+endif
+```
++ 对于需要图形界面的场景，其实可以先用linux来编译出来image，在mac的terminal中运行，因为image已经生成了
