@@ -1,0 +1,1 @@
+export AM_HOME := $(PWD)/../../lib/abstract-machine
