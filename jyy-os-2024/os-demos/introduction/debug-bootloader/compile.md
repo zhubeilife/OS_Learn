@@ -1,27 +1,22 @@
 x86_64-linux-gnu-gcc
     -MMD
     -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -Iabstract-machine/am/include
     -IAM/am/include/
     -IAM/klib/include/
-    -m32
     -fno-pic
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/start32.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/start32.S
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/start32.o
+    abstract-machine/am/src/x86/qemu/start32.S
 x86_64-linux-gnu-gcc
     -MMD
     -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -Iabstract-machine/am/include
     -IAM/am/include/
     -IAM/klib/include/
     -m32
     -fno-pic
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trap32.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/trap32.S
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/trap32.o
+    abstract-machine/am/src/x86/qemu/trap32.S
 x86_64-linux-gnu-gcc
     -std=gnu11
     -O2
@@ -29,7 +24,35 @@ x86_64-linux-gnu-gcc
     -Wall
     -Werror
     -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -Iabstract-machine/am/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -m32
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/trm.o
+    abstract-machine/am/src/x86/qemu/trm.c
+x86_64-linux-gnu-gcc
+    -std=gnu11
+    -MMD
+    -IAM/am/src
+    -Iabstract-machine/am/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -52,18 +75,12 @@ x86_64-linux-gnu-gcc
     -march=i386
     -fcf-protection=none
 
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trm.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/trm.c
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/cte.o
+    abstract-machine/am/src/x86/qemu/cte.c
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
     -MMD
-    -Wall
-    -Werror
     -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -Iabstract-machine/am/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -85,19 +102,11 @@ x86_64-linux-gnu-gcc
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/cte.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/cte.c
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/ioe.o
+    abstract-machine/am/src/x86/qemu/ioe.c
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
     -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -Iabstract-machine/am/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -114,24 +123,15 @@ x86_64-linux-gnu-gcc
     -U_FORTIFY_SOURCE
     -fvisibility=hidden
     --param=min-pagesize=0
-    -m32
     -fno-pic
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/ioe.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/ioe.c
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/vme.o
+    abstract-machine/am/src/x86/qemu/vme.c
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
     -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
+    -Iabstract-machine/am/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -148,102 +148,23 @@ x86_64-linux-gnu-gcc
     -U_FORTIFY_SOURCE
     -fvisibility=hidden
     --param=min-pagesize=0
-    -m32
     -fno-pic
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/vme.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/vme.c
-x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
-    -IAM/am/src
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/include
-    -IAM/am/include/
-    -IAM/klib/include/
-    -D__ISA__=\"x86\"
-    -D__ISA_X86__
-    -D__ARCH__=x86-qemu
-    -D__ARCH_X86_QEMU
-    -D__PLATFORM__=qemu
-    -D__PLATFORM_QEMU
-    -DARCH_H=\"arch/x86-qemu.h\"
-    -fno-asynchronous-unwind-tables
-    -fno-builtin
-    -fno-stack-protector
-    -Wno-main
-    -U_FORTIFY_SOURCE
-    -fvisibility=hidden
-    --param=min-pagesize=0
-    -m32
-    -fno-pic
-    -fno-omit-frame-pointer
-    -march=i386
-    -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/mpe.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/src/x86/qemu/mpe.c
+    -c -o abstract-machine/am/build/x86-qemu/src/x86/qemu/mpe.o
+    abstract-machine/am/src/x86/qemu/mpe.c
 x86_64-linux-gnu-ar
-    rcs
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/am-x86-qemu.a
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/start32.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trap32.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/trm.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/cte.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/ioe.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/vme.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/am/build/x86-qemu/src/x86/qemu/mpe.o
-    no
-    display
-    x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
-    -IAM/am/include/
-    -IAM/klib/include/
-    -D__ISA__=\"x86\"
-    -D__ISA_X86__
-    -D__ARCH__=x86-qemu
-    -D__ARCH_X86_QEMU
-    -D__PLATFORM__=qemu
-    -D__PLATFORM_QEMU
-    -DARCH_H=\"arch/x86-qemu.h\"
-    -fno-asynchronous-unwind-tables
-    -fno-builtin
-    -fno-stack-protector
-    -Wno-main
-    -U_FORTIFY_SOURCE
-    -fvisibility=hidden
-    --param=min-pagesize=0
-    -m32
-    -fno-pic
-    -fno-omit-frame-pointer
-    -march=i386
-    -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdio.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/stdio.c
+    abstract-machine/am/build/am-x86-qemu.a
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/start32.o
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/trap32.o
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/trm.o
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/cte.o
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/ioe.o
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/vme.o
+    abstract-machine/am/build/x86-qemu/src/x86/qemu/mpe.o
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -Iabstract-machine/klib/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -260,23 +181,14 @@ x86_64-linux-gnu-gcc
     -U_FORTIFY_SOURCE
     -fvisibility=hidden
     --param=min-pagesize=0
-    -m32
     -fno-pic
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/string.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/string.c
+    -c -o abstract-machine/klib/build/x86-qemu/src/stdio.o
+    abstract-machine/klib/src/stdio.c
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -Iabstract-machine/klib/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -293,23 +205,14 @@ x86_64-linux-gnu-gcc
     -U_FORTIFY_SOURCE
     -fvisibility=hidden
     --param=min-pagesize=0
-    -m32
     -fno-pic
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdlib.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/stdlib.c
+    -c -o abstract-machine/klib/build/x86-qemu/src/string.o
+    abstract-machine/klib/src/string.c
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -Iabstract-machine/klib/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -326,23 +229,38 @@ x86_64-linux-gnu-gcc
     -U_FORTIFY_SOURCE
     -fvisibility=hidden
     --param=min-pagesize=0
-    -m32
     -fno-pic
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/int64.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/int64.c
+    -c -o abstract-machine/klib/build/x86-qemu/src/stdlib.o
+    abstract-machine/klib/src/stdlib.c
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
-    -I/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/include
+    -Iabstract-machine/klib/include
+    -IAM/am/include/
+    -IAM/klib/include/
+    -D__ISA__=\"x86\"
+    -D__ISA_X86__
+    -D__ARCH__=x86-qemu
+    -D__ARCH_X86_QEMU
+    -D__PLATFORM__=qemu
+    -D__PLATFORM_QEMU
+    -DARCH_H=\"arch/x86-qemu.h\"
+    -fno-asynchronous-unwind-tables
+    -fno-builtin
+    -fno-stack-protector
+    -Wno-main
+    -U_FORTIFY_SOURCE
+    -fvisibility=hidden
+    --param=min-pagesize=0
+    -fno-pic
+    -fno-omit-frame-pointer
+    -march=i386
+    -fcf-protection=none
+    -c -o abstract-machine/klib/build/x86-qemu/src/int64.o
+    abstract-machine/klib/src/int64.c
+x86_64-linux-gnu-gcc
+    -Iabstract-machine/klib/include
     -IAM/am/include/
     -IAM/klib/include/
     -D__ISA__=\"x86\"
@@ -364,25 +282,16 @@ x86_64-linux-gnu-gcc
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/cpp.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/src/cpp.c
+    -c -o abstract-machine/klib/build/x86-qemu/src/cpp.o
+    abstract-machine/klib/src/cpp.c
 x86_64-linux-gnu-ar
-    rcs
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/klib-x86-qemu.a
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdio.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/string.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/stdlib.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/int64.o
-    /Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine/klib/build/x86-qemu/src/cpp.o
+    abstract-machine/klib/build/klib-x86-qemu.a
+    abstract-machine/klib/build/x86-qemu/src/stdio.o
+    abstract-machine/klib/build/x86-qemu/src/string.o
+    abstract-machine/klib/build/x86-qemu/src/stdlib.o
+    abstract-machine/klib/build/x86-qemu/src/int64.o
+    abstract-machine/klib/build/x86-qemu/src/cpp.o
 x86_64-linux-gnu-gcc
-    -std=gnu11
-    -O2
-    -MMD
-    -Wall
-    -Werror
     -I./include
     -IAM/am/include/
     -IAM/klib/include/
@@ -400,15 +309,11 @@ x86_64-linux-gnu-gcc
     -U_FORTIFY_SOURCE
     -fvisibility=hidden
     --param=min-pagesize=0
-    -m32
     -fno-pic
     -fno-omit-frame-pointer
     -march=i386
     -fcf-protection=none
-
-    -c
-    -o
-    ./build/x86-qemu/hello.o
+    -c -o ./build/x86-qemu/hello.o
     ./hello.c
 x86_64-linux-gnu-ld
     -z
@@ -416,8 +321,7 @@ x86_64-linux-gnu-ld
     -melf_i386
     -N
     -Ttext-segment=0x00100000
-    -o
-    ./build/hello-x86-qemu.elf
+    -o ./build/hello-x86-qemu.elf
     --start-group
     ./build/x86-qemu/hello.o
     AM/am/build/am-x86-qemu.a
@@ -425,27 +329,24 @@ x86_64-linux-gnu-ld
     --end-group
 x86_64-linux-gnu-gcc
     -static
-    -m32
     -fno-pic
     -Os
     -nostdlib
     -Ttext
     0x7c00
     -IAM/am/src
-    -o
-    bootblock.o
+    -o bootblock.o
     start.S
     main.c
 python3 genboot.py bootblock.o
 (
 cat
-AM/am/src/x86/qemu/boot/bootblock.o;
+    AM/am/src/x86/qemu/boot/bootblock.o;
 head
 -c
 1024
 /dev/zero;
 cat
-./build/hello-x86-qemu.elf
+    ./build/hello-x86-qemu.elf
 )
->
-./build/hello-x86-qemu
+> ./build/hello-x86-qemu

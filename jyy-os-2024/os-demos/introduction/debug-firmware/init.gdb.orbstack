@@ -12,7 +12,7 @@ end
 
 # Connect to remote
 set architecture i386:x86-64
-target remote host.orb.internal:1234
+target remote localhost:1234
 watch *0x7c00
 break *0x7c00
 layout asm
