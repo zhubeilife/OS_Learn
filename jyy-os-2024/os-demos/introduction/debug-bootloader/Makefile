@@ -16,7 +16,7 @@ debug_run:
 		-drive format=raw,file=build/hello-x86-qemu
 
 debug_debug:
-	gdb -x debug.py
+	gdb-multiarch -x init.gdb.orbstack
 
 log:
 	make -nB \
