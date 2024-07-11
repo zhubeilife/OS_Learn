@@ -19,10 +19,16 @@ __attribute__((noinline))
 void write_x_read_y() {
     int y_val;
 
+    // asm volatile(
+    //     "movl $1, %0;" // x = 1
+    //     "movl %2, %1;" // y_val = y
+    //     : "=m"(x), "=r"(y_val)
+    //     : "m"(y)
+    // );
     asm volatile(
-        "movl $1, %0;" // x = 1
-        "movl %2, %1;" // y_val = y
-        : "=m"(x), "=r"(y_val)
+        "mov %w0, #1;"
+        "ldr %w1, %2;"
+        : "=r"(x), "=r"(y_val)
         : "m"(y)
     );
 
@@ -33,10 +39,16 @@ __attribute__((noinline))
 void write_y_read_x() {
     int x_val;
 
+    // asm volatile(
+    //     "movl $1, %0;" // y = 1
+    //     "movl %2, %1;" // x_val = x
+    //     : "=m"(y), "=r"(x_val)
+    //     : "m"(x)
+    // );
     asm volatile(
-        "movl $1, %0;" // y = 1
-        "movl %2, %1;" // x_val = x
-        : "=m"(y), "=r"(x_val)
+        "mov %w0, #1;"
+        "ldr %w1, %2;"
+        : "=r"(y), "=r"(x_val)
         : "m"(x)
     );
 

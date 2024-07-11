@@ -6,14 +6,14 @@ long sum = 0;
 
 void T_sum() {
     for (int i = 0; i < N; i++) {
-        sum++;
+        // sum++;
 
         // Won't work even if we force a single-instruction
         // increment.
 
-        // asm volatile(
-        //     "incq %0" : "+m"(sum)
-        // );
+        asm volatile(
+            "incq %0" : "+m"(sum)
+        );
     }
 }
 

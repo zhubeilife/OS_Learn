@@ -1,3 +1,5 @@
+include ../../common.mk
+
 all: memory stack
 
 CFLAGS := -O1 -g -I$(TLIB_PATH)

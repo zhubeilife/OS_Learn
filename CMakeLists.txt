@@ -4,6 +4,8 @@ project(OSLearn)
 
 FILE(GLOB_RECURSE os-demos jyy-os-2024/os-demos *.c)
 
+set(OS-DEMOS jyy-os-2024/os-demos)
+
 set(SOURCE_FILES
         jyy-os-2023/exercise/L0/kernel/kernel.c
         jyy-os-2023/exercise/L1/kernel/kernel.c
@@ -14,6 +16,10 @@ set(SOURCE_FILES
 include_directories(
         jyy-os-2023/abstract-machine/am/include
         jyy-os-2023/abstract-machine/klib/include
+)
+
+include_directories(
+        ${OS-DEMOS}/concurrency/thread-lib/
 )
 
 add_executable(13-sum jyy-os-2023/code-at-book/13-sum/sum.c
@@ -34,9 +40,15 @@ add_executable(lab_kernel_hello jyy-os-2024/labs/kernel_hello/kernel.c)
 add_executable(lab_libco jyy-os-2024/labs/libco/co.c jyy-os-2024/labs/libco/co.h)
 add_executable(lab_sperf jyy-os-2024/labs/sperf/sperf.c)
 
-add_executable(introduction-minimal jyy-os-2024/os-demos/introduction/minimal/hello.c)
-add_executable(intro_hanoi_r jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.c
-        jyy-os-2024/os-demos/introduction/hanoi/hanoi-r.c)
-add_executable(intro_hanoi_nr jyy-os-2024/os-demos/introduction/hanoi/hanoi-main.c
-        jyy-os-2024/os-demos/introduction/hanoi/hanoi-nr.c)
+add_executable(introduction-minimal ${OS-DEMOS}/introduction/minimal/hello.c)
+add_executable(intro_hanoi_r ${OS-DEMOS}/introduction/hanoi/hanoi-main.c
+        ${OS-DEMOS}/introduction/hanoi/hanoi-r.c)
+add_executable(intro_hanoi_nr  ${OS-DEMOS}/introduction/hanoi/hanoi-main.c
+        ${OS-DEMOS}/introduction/hanoi/hanoi-nr.c)
 add_executable(yemy libs/yemu/idex.c libs/yemu/yemu.c libs/yemu/yemu.h)
+add_executable(con_thread-lib ${OS-DEMOS}/concurrency/thread-lib/hello.c)
+add_executable(con_thread-pa
+        ${OS-DEMOS}/concurrency/thread-qa/memory.c
+        ${OS-DEMOS}/concurrency/thread-qa/stack.c)
+add_executable(con_mem-model
+        ${OS-DEMOS}/concurrency/mem-model/mem-model.c)

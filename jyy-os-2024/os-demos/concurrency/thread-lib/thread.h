@@ -67,6 +67,7 @@ void join() {
     }
 }
 
+// Baidu Comate总结：这段代码定义了一个在程序启动时自动调用的函数startup，该函数在程序启动时注册了另一个函数join，以便在程序正常退出时自动调用join函数。这种机制常用于在程序生命周期的开头和结尾执行特定的初始化和清理任务。
 __attribute__((constructor)) 
 static void startup() {
     atexit(join);
