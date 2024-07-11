@@ -11,8 +11,9 @@ typedef union inst {
 #define MTYPE(i) u8 addr = (i)->mtype.addr;
 
 void idex() {
-  inst_t *cur = (inst_t *)&M[pc];
+  inst_t *cur = (inst_t *)&M[pc];   // 取指
   switch (cur->rtype.op) {
+    // 操作码译码    操作数译码         执行
     case 0b0000: { RTYPE(cur); R[rt]   = R[rs];   pc++; break; }
     case 0b0001: { RTYPE(cur); R[rt]  += R[rs];   pc++; break; }
     case 0b1110: { MTYPE(cur); R[RA]   = M[addr]; pc++; break; }
