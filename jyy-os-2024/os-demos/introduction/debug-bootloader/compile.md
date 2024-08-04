@@ -1,4 +1,10 @@
 # log
+## 过程
++ gcc将$ISA-nemu的AM实现源文件编译成目标文件, 然后通过ar将这些目标文件作为一个库, 打包成一个归档文件abstract-machine/am/build/am-$ISA-nemu.a
++ gcc把应用程序源文件(如am-kernels/tests/cpu-tests/tests/dummy.c)编译成目标文件
++ 通过gcc和ar把程序依赖的运行库(如abstract-machine/klib/)也编译并打包成归档文件
++ 根据Makefile文件abstract-machine/scripts/$ISA-nemu.mk中的指示, 让ld根据链接脚本abstract-machine/scripts/linker.ld, 将上述目标文件和归档文件链接成可执行文件
+
 ## am-x86-qemu.a
 ### start32.S
 x86_64-linux-gnu-gcc
