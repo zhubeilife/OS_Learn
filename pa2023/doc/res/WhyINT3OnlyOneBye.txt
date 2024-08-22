@@ -1,0 +1,93 @@
+Why is instruction INT3 only one byte?
+https://www.cs.columbia.edu/~junfeng/09sp-w4118/lectures/int3/int3.txt
+=======================================
+
+To answer this question, we must first understand how a debugger inserts a
+breakpoint into a program.  Below is how gdb implements breakpoint.
+
+(1) When we type "break OFFSET" in gdb, where OFFSET is an instruction
+    address, gdb memorizes the value of the byte stored at OFFSET, and set
+    the value of this byte to be INT3 (0xcc).
+
+    Suppose the original instruction at OFFSET is 0x8345fc01 (addl
+    $0x1,-0x8(%ebp)).  gdb will remember last byte (0x01) of this word,
+    and change the word to (0x8345fccc), which may not be a real
+    instruction.  But it doesn't matter, as we'll see in step 3.
+
+OFFSET    01    # original
+OFFSET+1  fc
+OFFSET+2  45
+OFFSET+3  83
+
+OFFSET    cc    # breakpoint inserted
+OFFSET+1  fc
+OFFSET+2  45
+OFFSET+3  83
+
+(2) Next, suppose we continue the debugged program.  When this program
+    hits the INT3 instruction the debugger just inserted, the debugged
+    program will trap into the kernel, and the kernel will in turn signal
+    gdb.
+
+(3) gdb will then restore the byte at OFFSET using the original value it
+    memorized, and moves the instruction pointer EIP back to OFFSET to
+    restart the instruction at OFFSET.  It needs to move the EIP because
+    after the CPU executes the INT3 instruction, the EIP gets incremented
+    by one already.
+
+    Using the same example, the debugger will replace the potentially
+    invalid instruction 0x8345fccc with the original instruction
+    0x8345fc01, and set EIP to OFFSET.
+
+OFFSET    cc   # after breakpoint
+OFFSET+1  fc   # <---- EIP points here
+OFFSET+2  45
+OFFSET+3  83
+
+OFFSET    01    # <--- EIP points here, after gdb restores instruction and EIP
+OFFSET+1  fc
+OFFSET+2  45
+OFFSET+3  83
+
+int3.c demonstrates the above idea.
+
+
+
+Now, let's see why INT3 should be a one-byte instruction, the minimum
+length of all x86 instructions.  Suppose INT3 is longer than some x86
+instructions.  When we use the above method to insert a breakpoint, we may
+overwrite more than one instructions, which can cause problems.  Consider
+the following example with two one-byte instructions:
+
+OFFSET     <instruction 1, one byte>
+OFFSET+1   <instruction 2, one byte>
+
+Suppose we want to set up a breakpoint at instruction 1.  To do so, we
+have to overwrite both instruction 1 and instruction 2 with INT3:
+
+OFFSET     <INT3...................
+OFFSET+1    ......................>
+
+In most cases, this will be just fine, since we can restore both
+instructions after we hit INT3 at OFFSET.  However, we will be in trouble
+if some code wants to jump to "OFFSET+1"; it will actually jump to the
+middle of our INT3 instruction, which can create undefined behaviors.  We
+don't have this problem if INT3 is one byte, the minimum length of all x86
+instructions.
+
+
+
+Why do debuggers overwrite instructions to insert breakpoint? Can't they
+just insert a breakpoint and shift all subsequent instructions by one
+byte?  Doing so is complicated, because it perturbs the offsets of the
+instructions, and causes j* instructions to jump to the wrong targets.
+Reusing the above example, if we insert a breakpoint before instruction 1,
+we'll transform the original code into:
+
+OFFSET     INT3
+OFFSET+1   <instruction 1>
+OFFSET+2   <instruction 2>
+
+If some code wants to jump to instruction 2 at OFFSET+1 in the original
+code, it will jump to instruction 1 instead in the transformed code, thus
+compute wrong result.
