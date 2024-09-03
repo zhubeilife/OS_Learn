@@ -26,9 +26,10 @@ PA中最重要的两个关于"程序在计算code机上运行"的视角介绍完
 
 + [ICP PA 实验纪实](https://note.tonycrane.cc/cs/system/pa/)：记录了整个PA的过程
 + [Kinfish am-kernels repo](https://github.com/Kingfish404/am-kernels)：添加了更多的testcase
++ [NOSAE nju pa2](https://www.cnblogs.com/nosae/p/17066439.html#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD2) : pa2参考
 
 ## Ref Link
 
-+ https://note.tonycrane.cc/cs/pl/riscv/unprivileged/
++ RISC-V 非特权级 ISA : https://note.tonycrane.cc/cs/pl/riscv/unprivileged/
 + https://www.cnblogs.com/nosae/p/17066439.html#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%A8%8B%E5%BA%8F
 + https://blog.csdn.net/weixin_63603830/article/details/133938389
