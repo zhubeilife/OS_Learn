@@ -21,6 +21,21 @@ PA中最重要的两个关于"程序在计算code机上运行"的视角介绍完
 下面是不同的TRM功能在不同层次上计算机是如何支持的
 ![](TRM_abstract_level.png)
 
+### 不匹配的函数调用和返回
+
+编译器将f1和f0的返回优化成了尾调用，调用的时候采用的是丢弃返回地址的jump
+
+
+| 伪指令         | 实际指令                                                                   | 意义                   |
+|:------------|:-----------------------------------------------------------------------|:---------------------|
+| j offset    | jal x0, offset                                                         | 无条件跳转，不存返回地址         |
+| jal offset  | jal x1, offset                                                         | 无条件跳转，返回地址存到 x1      |
+| jr rs       | jalr x0, 0(rs)                                                         | 无条件跳转到 rs 位置，忽略返回地址  |
+| jalr rs     | jalr x1, 0(rs)                                                         | 无条件跳转到 rs 位置，存返回地址   |
+| ret         | jalr x0, 0(x1)                                                         | 通过返回地址 x1 返回         |
+| call offset | auipc x1, offset[31 : 12] + offset[11]<br/>jalr x1, offset\[11:0](x1)  | 远调用                  |
+| tail offset | auipc x6, offset[31 : 12] + offset[11]<br/>jalr x0, offset\[11:0](x6)  | 忽略返回地址远调用            |
+
 
 ## 参考文档
 
