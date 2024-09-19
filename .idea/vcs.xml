@@ -8,5 +8,6 @@
     <mapping directory="$PROJECT_DIR$/libs/mosaic" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu/tools/capstone/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/nemu/tools/spike-diff/repo" vcs="Git" />
   </component>
 </project>
