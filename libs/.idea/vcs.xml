@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/abstract-machine" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/am-kernels" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/fceux-am" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/mosaic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/nemu" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/nemu/tools/capstone/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/nemu/tools/spike-diff/repo" vcs="Git" />
+  </component>
+</project>
