@@ -2,7 +2,7 @@ include ../../common.mk
 
 all: memory stack
 
-CFLAGS := -O1 -g -I$(TLIB_PATH)
+CFLAGS := -O1 -g -I$(TLIB_PATH) -I$(TLIB_PATH_HR) -pthread
 
 memory: memory.c
 	gcc $(CFLAGS) -o $@ $<

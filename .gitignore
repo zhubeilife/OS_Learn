@@ -154,3 +154,5 @@ plcs-64
 /libs/yemu/idex.o
 /libs/yemu/yemu
 /libs/yemu/yemu.o
+/jyy-os-2024/os-demos/concurrency/thread-qa/stack
+/jyy-os-2024/os-demos/concurrency/thread-qa/memory
