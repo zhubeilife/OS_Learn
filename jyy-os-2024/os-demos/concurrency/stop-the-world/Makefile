@@ -1,3 +1,4 @@
+include ../../common.mk
 cli: cli.c
 	gcc -O2 -g -o $@ $<
 
