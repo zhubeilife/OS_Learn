@@ -156,3 +156,9 @@ plcs-64
 /libs/yemu/yemu.o
 /jyy-os-2024/os-demos/concurrency/thread-qa/stack
 /jyy-os-2024/os-demos/concurrency/thread-qa/memory
+
+*.i
+*.s
+/jyy-os-2024/os-demos/concurrency/stop-the-world/cli
+/jyy-os-2024/os-demos/concurrency/sum-atomic/sum
+/jyy-os-2024/os-demos/concurrency/sum-locked/sum
