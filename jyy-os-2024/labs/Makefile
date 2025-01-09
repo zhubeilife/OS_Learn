@@ -23,7 +23,10 @@ $(NAME)-64: $(DEPS) # 64bit binary
 
 $(NAME)-32: $(DEPS) # 32bit binary
 	gcc -m32 $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
- 
+
+$(NAME).so: $(DEPS) # 64bit shared library
+	gcc -fPIC -shared $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
+
 $(NAME)-64.so: $(DEPS) # 64bit shared library
 	gcc -fPIC -shared -m64 $(CFLAGS) $(SRCS) -o $@ $(LDFLAGS)
 
