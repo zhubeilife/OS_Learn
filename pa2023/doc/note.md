@@ -53,15 +53,47 @@ PA中最重要的两个关于"程序在计算code机上运行"的视角介绍完
 
 编译器将f1和f0的返回优化成了尾调用，调用的时候采用的是丢弃返回地址的jump
 
-| 伪指令      | 实际指令                                                                  | 意义                               |
-| :---------- | :------------------------------------------------------------------------ | :--------------------------------- |
-| j offset    | jal x0, offset                                                            | 无条件跳转，不存返回地址           |
-| jal offset  | jal x1, offset                                                            | 无条件跳转，返回地址存到 x1        |
-| jr rs       | jalr x0, 0(rs)                                                            | 无条件跳转到 rs 位置，忽略返回地址 |
-| jalr rs     | jalr x1, 0(rs)                                                            | 无条件跳转到 rs 位置，存返回地址   |
-| ret         | jalr x0, 0(x1)                                                            | 通过返回地址 x1 返回               |
+| 伪指令      | 实际指令                                                           | 意义                               |
+| :---------- | :----------------------------------------------------------------- | :--------------------------------- |
+| j offset    | jal x0, offset                                                     | 无条件跳转，不存返回地址           |
+| jal offset  | jal x1, offset                                                     | 无条件跳转，返回地址存到 x1        |
+| jr rs       | jalr x0, 0(rs)                                                     | 无条件跳转到 rs 位置，忽略返回地址 |
+| jalr rs     | jalr x1, 0(rs)                                                     | 无条件跳转到 rs 位置，存返回地址   |
+| ret         | jalr x0, 0(x1)                                                     | 通过返回地址 x1 返回               |
 | call offset | auipc x1, offset[31 : 12] + offset[11]``jalr x1, offset\[11:0](x1) | 远调用                             |
 | tail offset | auipc x6, offset[31 : 12] + offset[11]``jalr x0, offset\[11:0](x6) | 忽略返回地址远调用                 |
+
+### 什么是尾调用？
+尾调用指的是：
+一个函数在返回时，直接返回另一个函数的调用结果，并且在这个调用之后没有其他操作。
+例子：
+
+```c
+int foo(int n) {
+    return bar(n); // 这是尾调用
+}
+```
+
+这里，foo 的最后一步就是调用 bar 并返回其结果。尾调用优化做了什么？
+
+普通调用：
+
++ 每次函数调用，都会在栈上分配新的栈帧（保存局部变量、返回地址等）。
++ 递归调用时，栈会不断增长，可能导致栈溢出。
+
+尾调用优化：
+
++ 如果编译器检测到是尾调用，它会复用当前函数的栈帧，而不是新建一个。
+这样，即使递归很深，栈空间也不会增加，避免了栈溢出。
+
+简而言之：
+
++ 普通递归：每次递归都新建栈帧，栈会变深。
++ 尾递归 + 优化：栈帧被复用，递归不会导致栈变深。
+
+### native测试
+
+我们可以通过在abstract-machine/klib/include/klib.h 中通过定义宏__NATIVE_USE_KLIB__来把库函数链接到klib. 如果不定义这个宏, 库函数将会链接到glibc
 
 ## PA3
 
@@ -74,7 +106,7 @@ PA中最重要的两个关于"程序在计算code机上运行"的视角介绍完
 + [PA2报告-HiDark](https://www.cnblogs.com/HiDark/p/17949518)
 + [PA2/3实验报告-常子豪](https://changzihao.github.io/2017/11/03/PA-2-3-%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/)
 + RISC-V 非特权级 ISA : https://note.tonycrane.cc/cs/pl/riscv/unprivileged/
-+ https://www.cnblogs.com/nosae/p/17066439.html#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6%88%B7%E7%A8%8B%E5%BA%8F
++ https://www.cnblogs.com/nosae/p/17066439.html#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6ca%88%B7%E7%A8%8B%E5%BA%8F
 + [Linux 上用xrdp进行远程/orbstack linux machine vnc](https://learn.microsoft.com/zh-tw/azure/virtual-machines/linux/use-remote-desktop?tabs=azure-cli)
 
 ## Machine Learning
