@@ -25,3 +25,6 @@
 [submodule "libs/am-kernels"]
 	path = libs/am-kernels
 	url = git@github.com:zhubeilife/am-kernels.git
+[submodule "libs/nanos-lite"]
+	path = libs/nanos-lite
+	url = git@github.com:zhubeilife/nanos-lite.git
