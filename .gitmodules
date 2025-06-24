@@ -28,3 +28,6 @@
 [submodule "libs/nanos-lite"]
 	path = libs/nanos-lite
 	url = git@github.com:zhubeilife/nanos-lite.git
+[submodule "libs/navy-apps"]
+	path = libs/navy-apps
+	url = git@github.com:zhubeilife/navy-apps.git
