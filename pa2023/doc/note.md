@@ -132,10 +132,11 @@ int foo(int n) {
 
 ### 参考文档
 
-+ [NOSAE nju pa3](https://www.cnblogs.com/nosae/p/17170131.html)
++ ß[NOSAE nju pa3](https://www.cnblogs.com/nosae/p/17170131.html)
 + [NJU PA3思路(riscv32)](https://blog.csdn.net/weixin_63603830/article/details/134065932)
 + [PA3.1报告-HiDark](https://www.cnblogs.com/HiDark/p/18092855)
 + [PA3 记录 silly19](https://www.cnblogs.com/silly2023/p/17947957)
++ [PA3报告](https://htchz.cc/posts/ics-pa/aa5960ea/)
 
 ## Machine Learning
 
