@@ -116,6 +116,7 @@ int foo(int n) {
 + RISC-V 非特权级 ISA : https://note.tonycrane.cc/cs/pl/riscv/unprivileged/
 + https://www.cnblogs.com/nosae/p/17066439.html#%E8%BF%90%E8%A1%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%A2%E6ca%88%B7%E7%A8%8B%E5%BA%8F
 + [Linux 上用xrdp进行远程/orbstack linux machine vnc](https://learn.microsoft.com/zh-tw/azure/virtual-machines/linux/use-remote-desktop?tabs=azure-cli)
++ [riscv 在线文档](https://riscv-software-src.github.io/riscv-unified-db/manual/html/landing/index.html)
 
 ## PA3
 
@@ -130,13 +131,100 @@ int foo(int n) {
 ![](pic/pa3_1_am_sam_trap.png)
 ![](pic/pa3_1_save_contex.png)
 
+### PA3.2
+
+#### 问题记录
+
+##### 1
+
+```txt
+  Program Headers:
+  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align
+  RISCV_ATTRIBUT 0x0058b7 0x00000000 0x00000000 0x0004e 0x00000 R   0x1
+  LOAD           0x000000 0x83000000 0x83000000 0x04d40 0x04d40 R E 0x1000
+  LOAD           0x005000 0x83005000 0x83005000 0x00898 0x008d4 RW  0x1000
+  GNU_STACK      0x000000 0x00000000 0x00000000 0x00000 0x00000 RW  0x10
+```
+
+> It's OK for ELF header to be a part of LOAD segment, since the entry point address is stored in elfh.entry.
+
+
+##### 2
+
+? memory copy是怎么调用到nemu的内存地址映射的？
+
+##### 3
+
+> system call 和yield操作的关系和区别，为了让difftest能够通过，修改的好像不太对吧
+
+```diff
+diff --git a/src/isa/riscv32/inst.c b/src/isa/riscv32/inst.c
+index 26ae5ac..32fc6e4 100644
+--- a/src/isa/riscv32/inst.c
++++ b/src/isa/riscv32/inst.c
+@@ -35,7 +35,7 @@ static word_t* csr_reg(word_t imm) {
+
+ #define CSR(i) *csr_reg(i)
+ // void yield() { asm volatile("li a7, -1; ecall");}
+-#define ECALL(dnpc) { bool success; dnpc = (isa_raise_intr(isa_reg_str2val("a7", &success), s->pc)
+); }
++#define ECALL(dnpc) { dnpc = isa_raise_intr(ENVIRONMENT_CALL_FROM_M_MODE, s->pc); }
+
+@@ -41,10 +56,7 @@ void yield() {
+ #ifdef __riscv_e
+   asm volatile("li a5, -1; ecall");
+ #else
+-  // 在RISC-V的用户程序中，使用ecall指令请求syscall。操作系统提供不同功能的syscall，对应不同的请求调用号。因此请求前，需要向a7寄存器中写入所请求的syscall的调用号
+-  // 这里强制改成了11，为了让difftest通过
+-  // rv的手册发现是自己没好好看手册的问题，mcause=0xb表示的是environment call from M-mode，由于我
+们全程都在M模式下跑，因此ecall对应的mcause就是0xb
+-  asm volatile("li a7, 11; ecall");
++  asm volatile("li a7, -1; ecall");
+ #endif
+ }
+```
+
+首先，这个问题是在P3.1的时候difftest的mcause的ref值不一样，所以把a7给的值，直接给成了跟diff test ref一样的11，但是后面做P3.2的时候仍旧遇到这个，在这个之前看到的都是把a7的值当作，mcause，实际上这个应该是不对的，因为实际上触发异常之后的mcasue是硬件自动完成的，所以当前的值是根据硬件的运行情况，比如处于M-mode，然后执行ecall指令，这样来触发的。
+只有 [yield test ](https://www.cnblogs.com/shangshankandashu/p/18543073) 文档中是这样介绍的，其他的文档都是按照原来的想法，所以很奇怪他们是怎么通过diff test的。
+另外在一个大学的教程中也看到了明确的说明[ustc lab7](https://soc.ustc.edu.cn/CECS/lab7/intro/)
+
+> 请根据上述描述，在 irq.c 文件中的 __irq_handle 中识别 EVENT_SYSCALL 和 EVENT_YIELD 事件（提示：使用保存在栈上的 mcause 识别出系统调用后，再使用保存的 a7 寄存器的值来识别事件）。
+
+> 并非只有用户程序会使用 ecall 指令，操作系统也可以使用 ecall 指令来触发系统调用，这种操作被称为“系统自陷”。如果一次 ecall 指令执行时 a7 的值为 -1，那么这次 ecall 指令就会触发一个 EVENT_YIELD 事件。这个事件虽然也是 ecall 指令触发的，但它和系统调用不同，不会触发 syscall_handle 函数。在实验的当前阶段，它会直接返回；而在一般的系统中，这个操作往往是主动引起进程调度。
+
+##### 4 为什么有EVENT_YIELD还有sys_yield两者的区别？
+
+[ustc lab7](https://soc.ustc.edu.cn/CECS/lab7/intro/)中的说法
+
+> 细心的同学可能发现了这里的一些古怪之处：在用户程序发起 SYS_yield 系统调用后，指令执行了两次 ecall 指令：一次是在用户程序中，一次是 yield 函数中。
+> 这样两次使用 ecall 是为了降低复杂度。SYS_yield 系统调用往往用于进程切换，如果我们在 do_syscall 中直接调用 schedule，那么势必会让 do_syscall 函数的返回值变得复杂。因此，我们在 do_syscall 中只是简单地调用了 yield 函数；而在 yield 函数中，我们再次执行 ecall 指令，这样就可以触发 EVENT_YIELD 事件，让 __am_irq_handle 函数调用 schedule 函数，完成进程切换。
+
+#### 系统调用
+
+整个的过程
+```txt
+navy-app执行，下面的指令，触发自限指令ecall
+  syscall.c : intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2)
+
+nemu解析到ecall指令
+  跳转到am cte_init给注定的mtvec异常处理函数
+
+am __am_irq_handle处理函数
+  CTE函数，自陷操作打包成一个系统调用事件EVENT_SYSCALL, 并交由Nanos-lite继续处理.
+
+nano-lites
+  Nanos-lite收到系统调用事件之后, 就会调出系统调用处理函数do_syscall()进行处理. do_syscall()首先通过宏GPR1从上下文c中获取用户进程之前设置好的系统调用参数, 通过第一个参数(riscv32:a7/GPR1) - 系统调用号 - 进行分发. 
+```
+
+
 ### 参考文档
 
-+ ß[NOSAE nju pa3](https://www.cnblogs.com/nosae/p/17170131.html)
++ [NOSAE nju pa3](https://www.cnblogs.com/nosae/p/17170131.html)
 + [NJU PA3思路(riscv32)](https://blog.csdn.net/weixin_63603830/article/details/134065932)
 + [PA3.1报告-HiDark](https://www.cnblogs.com/HiDark/p/18092855)
 + [PA3 记录 silly19](https://www.cnblogs.com/silly2023/p/17947957)
 + [PA3报告](https://htchz.cc/posts/ics-pa/aa5960ea/)
++ [ELF viewer工具](https://github.com/horsicq/XELFViewer/releases)
 
 ## Machine Learning
 
