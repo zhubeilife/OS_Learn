@@ -1,6 +1,7 @@
 --makefile=Makefile
 V=1
 ARCH=riscv32-nemu
+ISA=riscv32
 NEMU_HOME=/Users/airmac/Documents/Workspace/OS_Learn/libs/nemu
 AM_HOME=/Users/airmac/Documents/Workspace/OS_Learn/libs/abstract-machine
 NAVY_HOME=/Users/airmac/Documents/Workspace/OS_Learn/libs/navy-apps

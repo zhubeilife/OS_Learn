@@ -216,6 +216,42 @@ nano-lites
   Nanos-lite收到系统调用事件之后, 就会调出系统调用处理函数do_syscall()进行处理. do_syscall()首先通过宏GPR1从上下文c中获取用户进程之前设置好的系统调用参数, 通过第一个参数(riscv32:a7/GPR1) - 系统调用号 - 进行分发. 
 ```
 
+#### hello程序是什么, 它从而何来, 要到哪里去
+
+首先是编译hello程序，其中主要是navy-apps/libs/libos/src中最后调用main函数
+
+```asm
+.globl  _start
+_start:
+  mv s0, zero
+  jal call_main
+```
+
+```c
+#include <stdint.h>
+#include <stdlib.h>
+#include <assert.h>
+
+int main(int argc, char *argv[], char *envp[]);
+extern char **environ;
+void call_main(uintptr_t *args) {
+  char *empty[] =  {NULL };
+  environ = empty;
+  exit(main(0, empty, empty));
+  assert(0);
+}
+```
+
+riscv32通过 $(NAVY_HOME)/scripts/riscv/common.mk指定生成的efl文件的起始地址是0x83000000
+
+```mk
+CROSS_COMPILE = riscv64-linux-gnu-
+LNK_ADDR = $(if $(VME), 0x40000000, 0x83000000)
+CFLAGS  += -fno-pic -march=rv64g -mcmodel=medany
+LDFLAGS += --no-relax -Ttext-segment $(LNK_ADDR)
+```
+
+后面的程序的运行就是通过nano-lite中把程序给load到内部运行
 
 ### 参考文档
 
@@ -225,6 +261,8 @@ nano-lites
 + [PA3 记录 silly19](https://www.cnblogs.com/silly2023/p/17947957)
 + [PA3报告](https://htchz.cc/posts/ics-pa/aa5960ea/)
 + [ELF viewer工具](https://github.com/horsicq/XELFViewer/releases)
++ [kinfish404 ysyx参考实现](https://github.com/Kingfish404/ysyx-workbench)
++ [NJU计算机课程基础实验 PA3笔记（二) 2022-08-28](https://www.aispacewalk.cn/docs/ai/lab/NJUPA/nju-PA-PA3.2/)
 
 ## Machine Learning
 
