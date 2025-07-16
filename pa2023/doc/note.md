@@ -216,6 +216,8 @@ nano-lites
   Nanos-lite收到系统调用事件之后, 就会调出系统调用处理函数do_syscall()进行处理. do_syscall()首先通过宏GPR1从上下文c中获取用户进程之前设置好的系统调用参数, 通过第一个参数(riscv32:a7/GPR1) - 系统调用号 - 进行分发. 
 ```
 
+![](pic/PA3.png)
+
 #### hello程序是什么, 它从而何来, 要到哪里去
 
 首先是编译hello程序，其中主要是navy-apps/libs/libos/src中最后调用main函数
