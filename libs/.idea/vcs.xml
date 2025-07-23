@@ -6,6 +6,10 @@
     <mapping directory="$PROJECT_DIR$/am-kernels" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/fceux-am" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/mosaic" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/nanos-lite" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/navy-apps" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/navy-apps/libs/compiler-rt/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/navy-apps/libs/libc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/nemu" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/nemu/tools/capstone/repo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/nemu/tools/spike-diff/repo" vcs="Git" />
