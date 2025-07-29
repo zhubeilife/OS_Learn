@@ -261,7 +261,49 @@ LDFLAGS += --no-relax -Ttext-segment $(LNK_ADDR)
 
 ### PA3.4 精彩缤纷的应用程序
 
- 
+#### PAL 仙剑
+
+感谢https://htchz.cc/posts/ics-pa/aa5960ea/ 😊，博客中的问题我都遇到了
+
+##### TODO
+
+但是还是遗留了更新文字的时候，屏幕会显示色块，更新完就没问题了(native运行知道文字是一个一个在屏幕上显示的)。
+
+#### am-kernels
+
+> 在Navy中有一个libam的库, 它就是用来实现AM的API的. navy-apps/apps/am-kernels/Makefile会把libam加入链接的列表, 这样以后, AM应用中调用的AM API就会被链接到libam中, 而这些API又是通过Navy的运行时环境实现的, 这样我们就可以在Navy上运行各种AM应用了.
+
+对这个并不是非常的理解，感觉还是有些绕，现在想他想达成的是，只要根据am的定义的函数实现了，am-kernel的程序就能跑。
+而这里实现的am函数是依赖来于navy的实现，比如下面的init其实是调用NDL的init
+
+```c
+bool ioe_init() {
+  NDL_Init(0);
+  NDL_OpenCanvas(&w,&h);
+  for (int i = 0; i < 128; i++)
+    if (!lut[i]) lut[i] = fail;
+  return true;
+}
+```
+
+[参考](https://htchz.cc/posts/ics-pa/aa5960ea/)中说
+
+> 假设我们用ARCH=riscv32-nemu运行，我们最终调用链路是：
+> guest/am-kernels -> libam -> Navy -> Nanos-lite -> AM
+> 兜兜转转还是调用了AM的API，不过stdlib的实现就不是自己那套挫逼实现了。(Navy非native都是默认依赖libc,libos的)
+
+#### FCEUX
+
+TODO
+
+> 如何在Navy上运行Nanos-lite?
+
+TODO: 还没有怎们太绕明白
+
+
+#### oslab0
+
+TODO
 
 ### 参考文档
 
@@ -273,6 +315,7 @@ LDFLAGS += --no-relax -Ttext-segment $(LNK_ADDR)
 + [ELF viewer工具](https://github.com/horsicq/XELFViewer/releases)
 + [kinfish404 ysyx参考实现](https://github.com/Kingfish404/ysyx-workbench)
 + [NJU计算机课程基础实验 PA3笔记（二) 2022-08-28](https://www.aispacewalk.cn/docs/ai/lab/NJUPA/nju-PA-PA3.2/)
++ [土川的自留地PA3](https://htchz.cc/posts/ics-pa/aa5960ea/)
 
 ## Machine Learning
 
