@@ -148,7 +148,6 @@ int foo(int n) {
 
 > It's OK for ELF header to be a part of LOAD segment, since the entry point address is stored in elfh.entry.
 
-
 ##### 2
 
 ? memory copy是怎么调用到nemu的内存地址映射的？
@@ -202,6 +201,7 @@ index 26ae5ac..32fc6e4 100644
 #### 系统调用
 
 整个的过程
+
 ```txt
 navy-app执行，下面的指令，触发自限指令ecall
   syscall.c : intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2)
@@ -217,6 +217,7 @@ nano-lites
 ```
 
 ![](pic/PA3.png)
+![](pic/xj.png)
 
 #### hello程序是什么, 它从而何来, 要到哪里去
 
@@ -300,10 +301,40 @@ TODO
 
 TODO: 还没有怎们太绕明白
 
-
 #### oslab0
 
 TODO
+
+#### 快照
+
+TODO:只是简单的做了保存和装载的函数，但是没有仔细考虑和测试
+
+#### 展示你的批处理系统
+
+##### 一个return缺失引发的血案
+
+这个刚开的时候感觉是很简单的问题，但是load新的程序的时候，一直是magic num wrong，所以就开始了debug过程：
+1- 先查看这个地址的内容是不是确实不对，发现确实是错误的
+2- 然后就想办法到底是是谁修改了内容，通过syscalllog发现每次都是更新显示内容的时候，所以就怀疑是更新vga的时候内存越界了，但是打印vga所更新的地址始终是对的
+3- 然后就开始用nemu的monitor，当遇到ramdisk的地址修改的时候break，然后加上fuc trace发现了整个的过程。
+
+```c
+size_t fs_write(int fd, const void *buf, size_t len) {
+  assert((fd >= 0) && (fd < FILE_NUMS));
+
+  if (file_table[fd].write != NULL) {
+    // 就是这里没有return导致继续运行ramdisk了
+-->   return file_table[fd].write(buf, file_table[fd].open_offset, len);
+  }
+ 
+  int ret = ramdisk_write(buf, file_table[fd].disk_offset + file_table[fd].open_offset, usable_len);
+  return ret;
+}
+```
+
+感悟：确实通过这个debug，更了解了整个内存的构成，而且趁手的debug工具是解放人类的工具啊，这bug硬控了我一天。
+
+TODO: FTRACE能否获取ramdisk中函数的信息？
 
 ### 参考文档
 
