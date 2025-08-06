@@ -348,6 +348,83 @@ TODO: FTRACE能否获取ramdisk中函数的信息？
 + [NJU计算机课程基础实验 PA3笔记（二) 2022-08-28](https://www.aispacewalk.cn/docs/ai/lab/NJUPA/nju-PA-PA3.2/)
 + [土川的自留地PA3](https://htchz.cc/posts/ics-pa/aa5960ea/)
 
+## PA4
+
+### PA4.1
+
+#### 上下文切换
+
+```txt
+--> 中断发生 nemu
+
+// 将当前PC值保存到mepc寄存器
+// 在mcause寄存器中设置异常号
+// 从mtvec寄存器中取出异常入口地址
+// 跳转到异常入口地址
+word_t isa_raise_intr(word_t NO, vaddr_t epc) {
+  cpu.csr.mcause = NO;
+  cpu.csr.mepc = epc;
+  return cpu.csr.mtvec;
+}
+
+--> mtvec是am中初始化
+
+bool cte_init(Context*(*handler)(Event, Context*)) {
+  // initialize exception entry
+  asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));
+  // register event handler
+  user_handler = handler;
+}
+
+--> __am_asm_trap 中断处理函数，保存和恢复上下文(寄存器)，然后调用用户的中断处理函数
+ 
+__am_asm_trap:
+  addi sp, sp, -CONTEXT_SIZE
+  sw	ra,4(sp)
+  sw	gp,12(sp)
+  sw	tp,16(sp)
+  ...
+   
+  mv a0, sp
+  call __am_irq_handle
+  mv sp, a0
+
+  lw	ra,4(sp)
+  lw	gp,12(sp)
+  lw	tp,16(sp)
+  ...
+  
+  addi sp, sp, CONTEXT_SIZE
+  mret --> s->dnpc = cpu.csr.mepc
+
+--> 判断异常的类型，并调用用户自定义的handler函数
+
+Context* __am_irq_handle(Context *c) {
+  if (user_handler) {
+    Event ev = {0}; 
+    c = user_handler(ev, c);
+  }
+  return c;
+}  
+```
+
+#### 用户进程
+
+来自https://blog.csdn.net/weixin_63603830/article/details/134288883的总结，解答了我的疑问，为何叫内核栈
+
+> 做到这里笔者对用户进程又有了不一样的理解， 用户进程的代码, 数据和堆栈都应该位于用户区, 而且需要保证用户进程能且只能访问自己的代码, 数据和堆栈. 为了区别开来, 我们把PCB中的栈称为内核栈, 位于用户区的栈称为用户栈.
+> 进程控制块（PCB）通常是在系统启动时就创建好的。在没有进程加载的时候，系统会预留一些数据结构用于存储进程的信息，其中就包括了 PCB。这样，在进程被加载之前，系统就已经准备好了管理进程的数据结构。
+> 当一个进程被加载到系统中时，会在其对应的 PCB 中分配一块栈空间，并将进程的上下文信息（如寄存器状态等）保存到这个栈空间中。这个栈空间是为了在进程切换时暂存和恢复上下文而设计的。另一方面，加载的进程会有自己的独立栈空间，用于存储函数调用的局部变量、临时数据等。这个独立的栈空间是用于实际执行进程代码的地方。PCB 中的栈空间是一个用于保存上下文信息的缓冲区，而加载的进程有自己的独立栈空间，用于实际的执行。
+> PCB栈：
+> 1.上下文信息： PCB 栈主要用于保存进程的上下文，包括寄存器的值（例如，通用寄存器、程序计数器等）。
+> 2.进程状态： 保存进程的状态，例如就绪、运行、阻塞等。
+> 3.调度信息： 可能包括进程的优先级、时间片大小等调度相关的信息。
+> 用户栈：
+> 1.局部变量： 函数内部声明的变量会存储在实际栈上。
+> 2.函数参数： 被调用函数的参数通常也存储在实际栈上。
+> 3.返回地址： 当函数被调用时，返回地址会被存储在实际栈上，以便函数执行完毕后返回到调用者。
+> 4.临时数据： 函数执行期间产生的临时数据也存储在实际栈上。
+
 ## Machine Learning
 
 + The machine is always right. (机器永远是对的)

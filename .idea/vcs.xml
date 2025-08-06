@@ -8,6 +8,7 @@
     <mapping directory="$PROJECT_DIR$/libs/mosaic" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nanos-lite" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/navy-apps/apps/bird/repo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps/libs/compiler-rt/repo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps/libs/libc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu" vcs="Git" />
