@@ -425,6 +425,36 @@ Context* __am_irq_handle(Context *c) {
 > 3.返回地址： 当函数被调用时，返回地址会被存储在实际栈上，以便函数执行完毕后返回到调用者。
 > 4.临时数据： 函数执行期间产生的临时数据也存储在实际栈上。
 
+#### 用户进程的参数
+
+##### TODO nano-lite运行在native aarch64上
+
+遇到了问题，想用native跑方便用gdb来查看问题，用AI一阵操作猛如虎之后，还是没有成功的运行，建立个todo希望后面能搞定，并发一个MR到主源。
+
+##### debug遇到问题
+
+运行的时候发现，每次传入的envp都是不对的，然后接着看argv打印出来的结果也不对，最后发现原来是如果先load程序就会把上个程序的数据的部分给覆盖，导致拿到错误的argv
+
+```log
+init environ 0x81f59ff0
+after environ 0x83014940
+envp[0](addr: 0x83014950): PATH=/bin
+
+___execve
+argv:0x81f59f28 envp:0x83014940
+argv[0](addr: 0x83014934): --slip
+envp[0](addr: 0x83014950): PATH=/bin
+
+[nano-lite: syscall.c,95,do_syscall] [strace] syscall: SYS_execve /bin/pal argv:0x81f59f28 envp:0x83014940
+
+[nano-lite: loader.c,146,load_program_fd] Load [0x83000000, 0x8305cc8c]
+[nano-lite: loader.c,149,load_program_fd] Memset [0x8305cc8c, 0x8305cc8c]
+[nano-lite: loader.c,146,load_program_fd] Load [0x8305dffc, 0x83060af4]
+[nano-lite: loader.c,149,load_program_fd] Memset [0x83060af4, 0x8306773c]
+
+[nano-lite: proc.c,83,context_uload] context_uload: SYS_execve /bin/pal argv:0x81f59f28 envp:0x83014940
+```
+
 ## Machine Learning
 
 + The machine is always right. (机器永远是对的)
