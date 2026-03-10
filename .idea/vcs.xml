@@ -9,10 +9,14 @@
     <mapping directory="$PROJECT_DIR$/libs/nanos-lite" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps/apps/bird/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/navy-apps/apps/busybox/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/navy-apps/apps/oslab0/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/navy-apps/apps/pal/repo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps/libs/compiler-rt/repo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/navy-apps/libs/libc" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu/tools/capstone/repo" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libs/nemu/tools/spike-diff/repo" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/libs/rt-thread-am" vcs="Git" />
   </component>
 </project>

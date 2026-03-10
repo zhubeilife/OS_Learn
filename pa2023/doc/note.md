@@ -455,6 +455,92 @@ envp[0](addr: 0x83014950): PATH=/bin
 [nano-lite: proc.c,83,context_uload] context_uload: SYS_execve /bin/pal argv:0x81f59f28 envp:0x83014940
 ```
 
+### PA4.2
+
+事实上, 我们需要一种按需分配的虚存管理机制. 之所以分段机制不好实现按需分配, 就是因为段的粒度太大了, 为了实现这一目标, 我们需要反其道而行之: 把连续的存储空间分割成小片段, 以这些小片段为单位进行组织, 分配和管理. 这正是分页机制的核心思想.
+
+#### 理解分页细节
+
+![](./pic/x86_page.png)
+
+[80386 Page Translation](https://nju-projectn.github.io/i386-manual/s05_02.htm)
+
+```txt
+Figure 5-8.  Format of a Linear Address
+      31                 22 21                 12 11                 0
+     +---------------------+---------------------+--------------------+
+     |                     |                     |                    |
+     |         DIR         |        PAGE         |       OFFSET       |
+     |                     |                     |                    |
+     +---------------------+---------------------+--------------------+
+
+Figure 5-9.  Page Translation
+                                                              PAGE FRAME
+              +-----------+-----------+----------+         +---------------+
+              |    DIR    |   PAGE    |  OFFSET  |         |               |
+              +-----+-----+-----+-----+-----+----+         |               |
+                    |           |           |              |               |
+      +-------------+           |           +------------->|    PHYSICAL   |
+      |                         |                          |    ADDRESS    |
+      |   PAGE DIRECTORY        |      PAGE TABLE          |               |
+      |  +---------------+      |   +---------------+      |               |
+      |  |               |      |   |               |      +---------------+
+      |  |               |      |   |---------------|              ^
+      |  |               |      +-->| PG TBL ENTRY  |--------------+
+      |  |---------------|          |---------------|
+      +->|   DIR ENTRY   |--+       |               |
+         |---------------|  |       |               |
+         |               |  |       |               |
+         +---------------+  |       +---------------+
+                 ^          |               ^
++-------+        |          +---------------+
+|  CR3  |--------+
++-------+
+
+Figure 5-10.  Format of a Page Table Entry
+       31                                  12 11                      0
+      +--------------------------------------+-------+---+-+-+---+-+-+-+
+      |                                      |       |   | | |   |U|R| |
+      |      PAGE FRAME ADDRESS 31..12       | AVAIL |0 0|D|A|0 0|/|/|P|
+      |                                      |       |   | | |   |S|W| |
+      +--------------------------------------+-------+---+-+-+---+-+-+-+
+
+                P      - PRESENT
+                R/W    - READ/WRITE
+                U/S    - USER/SUPERVISOR
+                D      - DIRTY
+                AVAIL  - AVAILABLE FOR SYSTEMS PROGRAMMER USE
+
+                NOTE: 0 INDICATES INTEL RESERVED. DO NOT DEFINE.
+```
+
+riscv32 page
+
+![](./pic/sv32.png)
+
+> 为什么不采用一级页表? 或者说采用一级页表会有什么缺点?
+
+https://blog.csdn.net/ibless/article/details/81275009
+
+多级页表优势：
++ 1.可以离散存储页表。
++ 2.在某种意义上节省页表内存空间。
+
+多级页表劣势： 增加寻址次数，从而延长访存时间。
+
+
+临时存储
+https://blog.csdn.net/weixin_63603830/article/details/134288883
+https://marz.utk.edu/my-courses/cosc130/lectures/virtual-memory/
+https://zhuanlan.zhihu.com/p/413911195
+https://htchz.cc/posts/ics-pa/fb155443/
+https://www.aispacewalk.cn/docs/ai/lab/NJUPA/nju-PA-PA4/
+https://note.tonycrane.cc/cs/system/pa/
+https://note.tonycrane.cc/cs/pl/riscv/paging/
+https://danielmangum.com/risc-v-tips/2021-11-27-sv-32-address-translation/
+https://github.com/NJU-ProjectN/nemu/pull/128
+
+
 ## Machine Learning
 
 + The machine is always right. (机器永远是对的)
