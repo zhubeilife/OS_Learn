@@ -8,6 +8,33 @@
 一共分为 5 个部分，PA0 配置环境，PA1 完善 NEMU 的调试器功能，PA2 模拟 NEMU 指令运行以及补充 AM，PA3 完善 NEMU 的中断/异常处理、实现操作系统的系统调用以及简易文件系统功能，PA4 在操作系统中实现多道程序的运行、虚拟内存管理以及外部中断处理。
 PS：其中 AM 由五个部分组成，TRM（图灵机模拟）简单而且已经实现好了，IOE 为输入输出扩展，CTE 为上下文管理扩展，VME 为虚拟内存管理扩展，还有一个 MPE（多处理器扩展）在 PA 中不使用。klib 为简单的运行时库，提供给 AM 和操作系统使用。
 
+
+## PA0
+
+### 准备系统
+
+默认Ubuntu 22.04
+
+```bash
+sudo apt install build-essential man gcc-doc gdb git libreadline-dev libsdl2-dev ccache
+```
+
+如果用mac m1 native运行安装以下
+
+```bash
+brew install sdl2 dtc gdb
+```
+
+gbd对原声arm支持不好，最后用lldb
+
+
+### How to use your computer
+
++ [GDB debugging tutorial for beginners](https://linuxconfig.org/gdb-debugging-tutorial-for-beginners)
++ [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
++ [Missing Semater youtube](https://www.youtube.com/@MissingSemester/videos)
++ [Linux C编程一站式学习](https://akaedu.github.io/book/)
+
 ## PA1
 
 ### 最简单的计算机
