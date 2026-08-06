@@ -16,7 +16,13 @@ PS：其中 AM 由五个部分组成，TRM（图灵机模拟）简单而且已�
 默认Ubuntu 22.04
 
 ```bash
-sudo apt install build-essential man gcc-doc gdb git libreadline-dev libsdl2-dev ccache
+sudo apt install build-essential man gcc-doc gdb git libreadline-dev libsdl2-dev ccache bash-completion flex bison
+```
+
+如果用orb和ghostty，要设置
+
+```bash
+infocmp -x xterm-ghostty | ssh orb -- tic -x -
 ```
 
 如果用mac m1 native运行安装以下
